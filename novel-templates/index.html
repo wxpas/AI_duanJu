@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>豆包小说拆解模板 · 通用合集（8 套）</title>
+<style>
+:root{--bg:#0f0f1a;--card:#1a1a2e;--card2:#22223a;--accent:#ff6b9d;--accent2:#6c5ce7;--gold:#fdcb6e;--green:#00d2a8;--text:#f0f0f5;--muted:#a0a0b8;--border:#2d2d4a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(15,15,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar .logo{font-size:19px;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar .sub{color:var(--muted);font-size:13px}
+.jumpnav{position:sticky;top:53px;z-index:99;background:rgba(15,15,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:8px 20px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.jumpnav a{color:var(--muted);text-decoration:none;font-size:13px;padding:4px 12px;border:1px solid var(--border);border-radius:99px;transition:all .2s}
+.jumpnav a:hover{color:var(--text);border-color:var(--accent);background:rgba(255,107,157,.12)}
+.hero{max-width:1100px;margin:0 auto;padding:36px 20px 10px;text-align:center}
+.hero h1{font-size:clamp(26px,5vw,44px);font-weight:900;line-height:1.3}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);max-width:760px;margin:14px auto;font-size:15px}
+.wrap{max-width:1100px;margin:0 auto;padding:10px 20px 60px}
+.compare{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:20px 0}
+.cmp-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;position:relative}
+.cmp-card h3{font-size:20px;margin-bottom:6px}
+.cmp-card .style{font-size:13px;color:var(--muted);margin-bottom:10px}
+.cmp-card ul{margin-left:18px;font-size:14px;color:#d5d5e8}
+.cmp-card .len{display:inline-block;margin-top:12px;background:var(--card2);border:1px solid var(--border);padding:4px 12px;border-radius:99px;font-size:13px}
+.cmp-card .btn{margin-top:14px;width:100%;padding:12px;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;color:#fff}
+.btn1{background:linear-gradient(135deg,var(--accent),#e84393)}
+.btn2{background:linear-gradient(135deg,var(--accent2),#4834d4)}
+.btn3{background:linear-gradient(135deg,var(--green),#00b894)}
+.btn4{background:linear-gradient(135deg,#fdcb6e,#e17055)}
+.btn5{background:linear-gradient(135deg,#6c5ce7,#00d2a8)}
+.btn6{background:linear-gradient(135deg,#e84393,#6c5ce7)}
+.btn:hover{opacity:.9}
+.section{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;margin:20px 0}
+.section h2{font-size:22px;margin-bottom:8px}
+.section h3{font-size:17px;margin:20px 0 8px;color:var(--gold)}
+.section p,.section li{color:#d5d5e8;font-size:15px}
+.section ul,.section ol{margin:8px 0 8px 22px}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th{background:var(--card2);padding:10px;text-align:left;color:var(--gold)}
+td{padding:10px;border-top:1px solid var(--border);color:#d5d5e8;vertical-align:top}
+.callout{background:linear-gradient(135deg,rgba(255,107,157,.12),rgba(108,92,231,.12));border:1px solid rgba(255,107,157,.3);border-radius:12px;padding:14px 16px;margin:14px 0}
+.tip{background:rgba(0,210,168,.1);border:1px solid rgba(0,210,168,.3);border-radius:12px;padding:14px 16px;margin:14px 0}
+.warn{background:rgba(253,203,110,.1);border:1px solid rgba(253,203,110,.3);border-radius:12px;padding:14px 16px;margin:14px 0}
+.prompt-box{background:#0a0a14;border:1px solid var(--border);border-radius:12px;padding:16px;font-family:monospace;font-size:13px;color:#a5f3c5;margin:12px 0;white-space:pre-wrap;word-break:break-word;max-height:420px;overflow:auto;position:relative}
+.copy-btn{position:absolute;top:8px;right:8px;background:var(--accent2);color:#fff;border:none;padding:5px 12px;border-radius:8px;font-size:12px;cursor:pointer}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
+.step-card{background:var(--card2);border-radius:14px;padding:16px;border-top:4px solid var(--accent)}
+.step-card:nth-child(2){border-top-color:var(--accent2)}
+.step-card:nth-child(3){border-top-color:var(--gold)}
+.step-card h4{margin-bottom:6px}
+.step-card p{font-size:14px;color:var(--muted)}
+.modules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0}
+.mod{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:14px}
+.mod b{color:var(--gold)}
+.footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 20px;border-top:1px solid var(--border)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 20px;border-radius:99px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="logo">📖 豆包小说拆解模板</div><div class="sub">通用 · 8 套完整模板 · 一键复制到豆包</div></div>
+
+<nav class="jumpnav">
+  <a href="#tpl1">①严谨</a><a href="#tpl2">②速记</a><a href="#tpl3">③写作</a><a href="#tpl4">④短剧</a><a href="#tpl5">⑤漫剧</a><a href="#tpl6">玄幻</a><a href="#tpl7">言情</a><a href="#tpl8">悬疑</a><a href="#compare">对比</a><a href="#howto">用法</a>
+</nav>
+
+<div class="hero">
+  <h1>豆包小说拆解模板<br><span>通用合集 · 8 套完整模板</span></h1>
+  <p>把任意小说粘贴给豆包，按模板一键拆解。选一套 → 点复制 → 粘贴到豆包 → 再粘贴小说正文即可。长篇小说分 3 次喂：先框架，再中间，再高潮结局。</p>
+</div>
+
+<div class="wrap">
+  <div class="compare">
+    <div class="cmp-card">
+      <h3>① 严谨分析型</h3>
+      <div class="style">学术严谨 · 因果深挖 · 标注证据</div>
+      <ul><li>讲透「为什么这样写」</li><li>区分事实与推断</li><li>适合深度研读、改编评估</li></ul>
+      <span class="len">输出约 3000-5000 字</span>
+      <button class="btn btn1" onclick="copyTemplate('tpl1')">📋 复制模板①到豆包</button>
+    </div>
+    <div class="cmp-card">
+      <h3>② 速记型</h3>
+      <div class="style">极简速记 · 要点直给 · 符号化</div>
+      <ul><li>5 分钟看完「这本书讲了啥」</li><li>手机备忘、讨论前复习</li><li>总字数 1500 字内</li></ul>
+      <span class="len">输出约 800-1500 字</span>
+      <button class="btn btn2" onclick="copyTemplate('tpl2')">📋 复制模板②到豆包</button>
+    </div>
+    <div class="cmp-card">
+      <h3>③ 写作参考型</h3>
+      <div class="style">技法导向 · 拿来即用 · 改编友好</div>
+      <ul><li>讲清「怎么写才能抄」</li><li>适合写作学习、短剧漫剧改编</li><li>每技巧附改编提示</li></ul>
+      <span class="len">输出约 2000-3000 字</span>
+      <button class="btn btn3" onclick="copyTemplate('tpl3')">📋 复制模板③到豆包</button>
+    </div>
+    <div class="cmp-card">
+      <h3>④ 短剧改编型（新增）</h3>
+      <div class="style">分集导向 · 钩子密度 · 付费卡点</div>
+      <ul><li>小说原样→短剧改法</li><li>具体到第X集+3秒钩子台词</li><li>适合竖屏短剧开拍</li></ul>
+      <span class="len">输出分集方案 80 集规划</span>
+      <button class="btn btn4" onclick="copyTemplate('tpl4')">📋 复制模板④到豆包</button>
+    </div>
+    <div class="cmp-card">
+      <h3>⑤ 漫剧分集型（新增）</h3>
+      <div class="style">分话导向 · 视觉化 · 分镜友好</div>
+      <ul><li>小说原样→漫剧改法</li><li>具体到第X话+分镜要点</li><li>适合漫剧直接制作</li></ul>
+      <span class="len">输出分话方案 50 话规划</span>
+      <button class="btn btn5" onclick="copyTemplate('tpl5')">📋 复制模板⑤到豆包</button>
+    </div>
+    <div class="cmp-card">
+      <h3>玄幻 / 言情 / 悬疑定制版（新增）</h3>
+      <div class="style">题材专属 · 境界/CP线/线索链</div>
+      <ul><li>玄幻：境界体系+战力标尺</li><li>言情：CP线+甜虐点</li><li>悬疑：线索链+反转</li></ul>
+      <span class="len">3 个题材定制版</span>
+      <button class="btn btn6" onclick="copyTemplate('tpl6')">📋 复制玄幻版</button>
+      <button class="btn btn1" style="margin-top:8px" onclick="copyTemplate('tpl7')">📋 复制言情版</button>
+      <button class="btn btn2" style="margin-top:8px" onclick="copyTemplate('tpl8')">📋 复制悬疑版</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🧩 8 套模板共有的 8 个模块</h2>
+    <p>顺序固定，方便横向对比。每个模块在合集文档里都附【填写说明】+【通用示例】，套用时删掉示例、只留格式。</p>
+    <div class="modules">
+      <div class="mod"><b>1 基础信息</b><br>书名、题材、字数</div>
+      <div class="mod"><b>2 一句话概括</b><br>主角+困境+行动+结局</div>
+      <div class="mod"><b>3 主线与支线</b><br>钩子链 + 支线功能</div>
+      <div class="mod"><b>4 人物动机与弧线</b><br>动机分层 + 从A到B</div>
+      <div class="mod"><b>5 世界观设定</b><br>力量/势力/规则/道具/代价</div>
+      <div class="mod"><b>6 剧情结构</b><br>开端/发展/高潮/结局</div>
+      <div class="mod"><b>7 爽点与伏笔</b><br>位置+类型+回收</div>
+      <div class="mod"><b>8 写作技巧</b><br>可复用的3步操作</div>
+    </div>
+    <div class="tip"><b>示例小说说明：</b>合集文档中用虚构示例《青云剑》示范每个模块的填法。实际使用时，把示例整段删掉，只保留格式即可。</div>
+  </div>
+
+  <div class="section">
+    <h2 id="howto">🚀 快速上手（3 步）</h2>
+    <div class="steps">
+      <div class="step-card"><h4>第 1 步 · 选模板</h4><p>深度研读选①，快速复习选②，学写作选③，改短剧选④，改漫剧选⑤，题材专属选定制版。点上方按钮复制。</p></div>
+      <div class="step-card"><h4>第 2 步 · 粘贴到豆包</h4><p>把模板粘贴到豆包，再粘贴小说文本。长篇分 3 次喂：先简介+目录+前3章，再中间摘要，最后高潮+结局。</p></div>
+      <div class="step-card"><h4>第 3 步 · 检查输出</h4><p>确认 8 个模块齐全、推断已标注、缺失处标【文本未提供】。不满意追加：“请按模板重新输出，补齐缺失模块，不要编造。”</p></div>
+    </div>
+    <div class="warn"><b>长篇技巧：</b>豆包单次上下文有限，不要一次贴全书。分段喂时每段都用同一套模板续写，并告诉豆包“这是第X段，请续写拆解并更新模块”。</div>
+    <div class="tip"><b>组合玩法：</b>②速记→④短剧（先定卖点再分集）；③写作参考→题材定制版（通用技法+专属字段）；①严谨分析→⑤漫剧（先评估再分话）。组合时后一套直接引用前一套输出（“基于上一步的拆解，请按模板X继续”），不用重新喂全文。</div>
+  </div>
+
+  <div class="section">
+    <h2>📋 模板① · 严谨分析型（可复制版）</h2>
+    <p>适合：深度研读、改编评估、论文/复盘。风格：正式、表格化、因果链完整。</p>
+    <div class="prompt-box" id="tpl1">你是一名严谨的小说分析师。请严格按照下方【模板①·严谨分析型】的 8 个模块，对我提供的小说文本进行拆解。
+要求：
+1. 严格按模块顺序输出，不要增删模块，不要合并模块；
+2. 每个模块内先给结论，再给依据（标注章节或情节位置，如“第X章/开篇/高潮段”）；
+3. 区分【原文事实】与【合理推断】，推断必须标注“推断”；
+4. 语言正式、客观，不使用口语和情绪化表达；
+5. 若小说文本不完整，缺失处标注【文本未提供，无法判断】，不要编造；
+6. 输出使用 Markdown 标题层级（三级标题为模块），表格优先于长段落。
+
+【模板①·严谨分析型】
+
+## 模块 1：基础信息
+填写说明：书名（含卷名）；题材（一级+二级标签）；字数（总数或章节数，未提供则注明估算依据）；作者/平台/连载状态（无则标注未提供）；拆解范围（全书/前X章/指定片段）。
+输出格式：表格（项目|内容）。
+
+## 模块 2：一句话故事概括
+填写说明：1句话不超过60字，句式：[主角]在[困境]下，凭借[关键能力/机缘]，历经[关键阶段]，最终[结局状态]。必须含主角身份、最大冲突、最终结果；群像注明主线人物。
+输出格式：单段引用块。
+
+## 模块 3：核心主线与支线梳理
+填写说明：主线用3-5节点概括（起因→推进→转折→高潮→结局），每节点标注章节范围；支线每条单独列出（支线名、涉及人物、与主线关系、结局）；标注主线与支线交汇点；未完结标注“未完结/烂尾（推断）”。
+输出格式：主线有序列表 + 支线列表。
+
+## 模块 4：主要人物及其动机与成长弧线
+填写说明：主要人物3-5人，每人固定5项：身份标签、表层动机、深层动机（推断）、关键抉择（2-3个转折点）、成长弧线（从A到B对比句）。动机区分人物自述与实际驱动，后者标注（推断）。
+输出格式：每人一个小节，5项分行。
+
+## 模块 5：世界观设定要点
+填写说明：只提炼影响剧情的设定，固定5类：力量体系、势力格局、社会规则、核心道具/地点、设定代价/限制。每条标注首次出现章节与剧情作用（一句话）；矛盾处标注【设定矛盾】。
+输出格式：表格（设定类别|要点|首次出现|剧情作用）。
+
+## 模块 6：剧情结构拆解（开端、发展、高潮、结局）
+填写说明：严格四段，每段含章节范围、核心事件（3-5个）、情绪基调、段落功能（一句话）。开端交代处境/冲突/入局；发展写升级与支线；高潮写最大冲突与终极抉择；结局写解决方式/归宿/主题。
+输出格式：四段小节，每段末尾标注段落功能。
+
+## 模块 7：爽点与伏笔标注
+填写说明：爽点每条标注位置（章节）+类型（打脸/逆袭/揭秘等）+情绪效果；伏笔每条标注埋设位置+回收位置+内容（一句话）。分开列表，至少各5条，不足标注【文本未提供】。
+输出格式：爽点列表 + 伏笔列表。
+
+## 模块 8：可复用的写作技巧总结
+填写说明：只总结可迁移技巧，每条格式：技巧名+适用场景+操作步骤（3步内）+本书例证（章节）。至少5条，覆盖开篇/人物/冲突/伏笔/节奏。避免空泛评价，必须可执行。
+输出格式：编号列表。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl1')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 模板② · 速记型（可复制版）</h2>
+    <p>适合：快速通读、手机备忘、开会/讨论前复习。风格：极简、符号化、要点直给。</p>
+    <div class="prompt-box" id="tpl2">你是一名速记员。请按下方【模板②·速记型】对我提供的小说做速记拆解。
+要求：
+1. 严格按 8 个模块输出，每个模块用一句话或 3-5 个短语，不写长段落；
+2. 能用符号就用符号（→ / + / =），能用短语就不用整句；
+3. 只记结论和关键词，不记过程细节；
+4. 每个模块标题用【】包裹，模块之间空一行；
+5. 若信息缺失，直接写“无/未提供”，不要编造；
+6. 总字数控制在 1500 字以内。
+
+【模板②·速记型】
+
+【基础信息】
+一行写完：书名｜题材（2标签）｜字数（约数）｜状态｜范围。不确定写“？”，不要猜。
+
+【一句话概括】
+1句话30字内，公式：[主角]+[困境]→[行动]→[结局]。只记主线。
+
+【主线与支线】
+主线：3个箭头短语（起因→转折→结局）。
+支线：每条1行：支线名+人物+结局（10字内），只记最重要的3条。
+
+【人物】
+每人1行：名字（身份）｜动机：X｜弧线：从A→B。只记3人，动机1关键词。
+
+【世界观】
+5个短语，每行1个：力量/势力/规则/道具/代价。格式：类别：要点（作用），10字内。
+
+【结构】
+每段1行：段名（章节）：3个关键词（用+连接）。开端/发展/高潮/结局四段。
+
+【爽点与伏笔】
+爽点每条1行：章节+类型+情绪词（8字内），记5条。
+伏笔每条1行：埋设→回收：内容（10字内），记5条。
+
+【技巧】
+每条1行：技巧名：3步短语。只记5条，覆盖开篇/人物/冲突/伏笔/结局，不写例证。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl2')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 模板③ · 写作参考型（可复制版）</h2>
+    <p>适合：写作学习、短剧/漫剧改编、拆解爆款套路。风格：技法导向、步骤化、强调可抄性。</p>
+    <div class="prompt-box" id="tpl3">你是一名写作教练。请按下方【模板③·写作参考型】拆解我提供的小说，重点提炼“可直接复用的写法”。
+要求：
+1. 严格按 8 个模块输出，每个模块先给“写法拆解”，再给“复用步骤”；
+2. 复用步骤必须写成 3 步以内的可执行动作（动词开头）；
+3. 每个技巧标注本书例证（章节），并给一句“改编提示”（如何改成短剧/漫剧/新小说）；
+4. 语言亲切、具体，避免空泛评价；
+5. 若文本不足，标注【文本未提供】，不要编造；
+6. 输出使用 Markdown 标题层级，表格优先。
+
+【模板③·写作参考型】
+
+## 模块 1：基础信息
+填写说明：书名、题材、字数、作者/平台/状态、拆解范围；另加目标读者（推断）+可改编方向（短剧/漫剧/有声剧/新小说，1-2个+一句话理由）。
+输出格式：表格。
+
+## 模块 2：一句话故事概括
+填写说明：概括句（主角+困境+行动+结局）+卖点句（最吸引人的1个标签）。分两行。
+输出格式：两行引用块。
+
+## 模块 3：核心主线与支线梳理
+填写说明：主线按钩子链拆（每节点标注钩子类型：悬念/冲突/反转）；支线标注功能（铺垫/误导/情感/世界观）；最后给改编取舍建议（保留哪条、砍掉哪条）。
+输出格式：钩子链列表 + 支线功能表 + 取舍建议一句。
+
+## 模块 4：主要人物及其动机与成长弧线
+填写说明：每人拆人设公式（标签×标签=人设）+表层目标+深层伤口+弧线拐点（关键事件）+复用提示（如何移植到新小说/短剧）。主要人物3-5人。
+输出格式：每人一个小节，5项分行。
+
+## 模块 5：世界观设定要点
+填写说明：每条设定拆三列：设定是什么、作者怎么用它制造剧情、我怎么复用。重点标注设定如何变成钩子/冲突。
+输出格式：表格（设定|作者的写法|复用提示）。
+
+## 模块 6：剧情结构拆解（开端、发展、高潮、结局）
+填写说明：每段拆事件+写法+节奏（快/中/慢），标注钩子密度（每X章一个钩子）；最后给结构复用模板（一句话公式）。
+输出格式：四段小节 + 复用模板一句。
+
+## 模块 7：爽点与伏笔标注
+填写说明：爽点拆铺垫手法+释放方式；伏笔拆伪装手法+回收方式；每条最后给复用提示（我怎么写同款）。
+输出格式：爽点列表 + 伏笔列表。
+
+## 模块 8：可复用的写作技巧总结
+填写说明：每条格式：技巧名｜什么时候用｜3步操作｜本书例证｜改编提示（具体到短剧/漫剧某一集或某一镜）。至少5条，覆盖开篇/人物/冲突/伏笔/节奏/结局。
+输出格式：编号列表。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl3')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 模板④ · 短剧改编型（可复制版）</h2>
+    <p>适合：小说改竖屏短剧。风格：分集导向、钩子密度、付费卡点。</p>
+    <div class="prompt-box" id="tpl4">你是一名竖屏短剧编剧。请按下方【模板④·短剧改编型】拆解我提供的小说，输出可直接开拍的分集改编方案。
+要求：
+1. 严格按 8 个模块输出，不要增删模块；
+2. 每个模块先给“小说原样”，再给“短剧改法”（删什么、留什么、怎么改）；
+3. 分集规划必须具体到集数（如第1-3集、第4-10集），每集标注钩子与卡点；
+4. 爽点必须标注“第X集+类型+3秒钩子台词”；
+5. 语言具体、可执行，避免空泛评价；
+6. 若文本不足，标注【文本未提供】，不要编造；
+7. 输出使用 Markdown 标题层级，表格优先。
+
+【模板④·短剧改编型】
+
+## 模块 1：基础信息
+填写说明：书名、题材、字数、拆解范围；另加目标平台（抖音/快手/小程序）、单集时长（60-180秒）、总集数规划（建议60-100集）、目标人群（推断）。
+输出格式：表格。
+
+## 模块 2：一句话故事概括
+填写说明：概括句（主角+困境+行动+结局）+卖点句（最强标签）+付费钩子句（让观众付费看下去的一句话）。分三行。
+输出格式：三行引用块。
+
+## 模块 3：核心主线与支线梳理
+填写说明：主线按分集钩子链拆（每节点标注集数范围+钩子类型：悬念/冲突/反转/打脸）；支线标注功能与去留（保留/合并/删除）；最后给改编取舍建议（小说支线如何压缩到短剧）。
+输出格式：钩子链表 + 支线去留表 + 取舍建议一句。
+
+## 模块 4：主要人物及其动机与成长弧线
+填写说明：每人拆人设公式（标签×标签=人设）+表层目标+深层伤口+打脸/逆袭功能（该人物负责哪类爽点）+弧线拐点（集数）。主要人物3-5人。
+输出格式：每人一个小节，5项分行。
+
+## 模块 5：世界观设定要点
+填写说明：只保留短剧需要的设定（3-5条），每条拆：设定+短剧用法（如何用一句话交代）+视觉化提示（如何拍出来）。删除小说中复杂设定说明。
+输出格式：表格（设定|短剧用法|视觉化提示）。
+
+## 模块 6：剧情结构拆解（开端、发展、高潮、结局）
+填写说明：按短剧分集拆四段：开端（第1-10集，黄金前3集必须有强钩子）、发展（第11-60集，冲突升级）、高潮（第61-90集，终极对决）、结局（第91-100集，收尾）。每段含集数范围、核心事件（3-5个）、钩子密度、付费卡点位置。
+输出格式：四段小节 + 付费卡点标注。
+
+## 模块 7：爽点与伏笔标注
+填写说明：爽点每条标注集数+类型（打脸/逆袭/揭秘/甜宠/虐心）+3秒钩子台词（可直接配音）+铺垫集数；伏笔每条标注埋设集数+回收集数+内容。爽点密度要求每集至少1个。
+输出格式：爽点表 + 伏笔表。
+
+## 模块 8：可复用的写作技巧总结
+填写说明：每条格式：技巧名｜什么时候用｜3步操作｜小说例证｜短剧改法（具体到第X集怎么拍）。至少5条，覆盖开篇钩子/打脸节奏/卡点/伏笔/结局。
+输出格式：编号列表。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl4')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 模板⑤ · 漫剧分集型（可复制版）</h2>
+    <p>适合：小说改漫剧。风格：分话导向、视觉化、分镜友好。</p>
+    <div class="prompt-box" id="tpl5">你是一名漫剧编剧兼分镜师。请按下方【模板⑤·漫剧分集型】拆解我提供的小说，输出可直接制作的分话分镜方案。
+要求：
+1. 严格按 8 个模块输出，不要增删模块；
+2. 每个模块先给“小说原样”，再给“漫剧改法”（如何视觉化、如何分话）；
+3. 分话规划必须具体到话数（如第1话、第2话），每话标注时长（60-180秒）与结尾钩子；
+4. 关键场景必须标注分镜要点（景别+镜头运动）；
+5. 语言具体、可执行，避免空泛评价；
+6. 若文本不足，标注【文本未提供】，不要编造；
+7. 输出使用 Markdown 标题层级，表格优先。
+
+【模板⑤·漫剧分集型】
+
+## 模块 1：基础信息
+填写说明：书名、题材、字数、拆解范围；另加目标平台（抖音/快手/B站）、单话时长（60-180秒）、总话数规划、画风建议（国风/韩漫/暗黑等）、目标人群（推断）。
+输出格式：表格。
+
+## 模块 2：一句话故事概括
+填写说明：概括句（主角+困境+行动+结局）+卖点句（最强视觉标签）+追更钩子句（让观众点下一话的一句话）。分三行。
+输出格式：三行引用块。
+
+## 模块 3：核心主线与支线梳理
+填写说明：主线按分话钩子链拆（每节点标注话数范围+钩子类型：悬念/冲突/反转/情绪）；支线标注功能与去留（保留/合并/删除）；最后给改编取舍建议（小说支线如何压缩到漫剧）。
+输出格式：钩子链表 + 支线去留表 + 取舍建议一句。
+
+## 模块 4：主要人物及其动机与成长弧线
+填写说明：每人拆视觉人设（外貌标签+服装配色+识别点）+表层目标+深层伤口+表情包清单（喜/怒/哀/乐）+弧线拐点（话数）。主要人物3-5人。
+输出格式：每人一个小节，5项分行。
+
+## 模块 5：世界观设定要点
+填写说明：只保留漫剧需要的设定（3-5条），每条拆：设定+漫剧用法（如何用一镜交代）+视觉化提示（画面如何呈现）。删除小说中文字说明过多的设定。
+输出格式：表格（设定|漫剧用法|视觉化提示）。
+
+## 模块 6：剧情结构拆解（开端、发展、高潮、结局）
+填写说明：按漫剧分话拆四段：开端（第1-5话，黄金前3话必须有强钩子）、发展（第6-30话）、高潮（第31-45话）、结局（第46-50话）。每段含话数范围、核心事件（3-5个）、分镜要点（景别+运动）、结尾钩子。
+输出格式：四段小节 + 分镜要点标注。
+
+## 模块 7：爽点与伏笔标注
+填写说明：爽点每条标注话数+类型（打脸/逆袭/揭秘/甜宠/恐怖）+视觉爽点描述（画面如何呈现）+配音台词；伏笔每条标注埋设话数+回收话数+视觉载体（如断剑、脚印）。每话至少1个爽点。
+输出格式：爽点表 + 伏笔表。
+
+## 模块 8：可复用的写作技巧总结
+填写说明：每条格式：技巧名｜什么时候用｜3步操作｜小说例证｜漫剧改法（具体到第X话怎么拍/怎么配音）。至少5条，覆盖开篇钩子/分话节奏/视觉奇观/伏笔/结局。
+输出格式：编号列表。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl5')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 题材定制版 · 玄幻（可复制版）</h2>
+    <p>适合：玄幻/仙侠/洪荒。专属：境界体系、战力标尺、升级节奏。</p>
+    <div class="prompt-box" id="tpl6">你是一名玄幻小说分析师。请按下方【模板·玄幻定制版】拆解我提供的小说，重点拆解境界体系、战力标尺与升级节奏。
+要求：
+1. 严格按 8 个模块输出，不要增删模块；
+2. 每个模块先给结论，再给依据（标注章节）；
+3. 境界/功法/势力必须列全并标注首次出现章节；
+4. 区分【原文事实】与【合理推断】，推断标注“推断”；
+5. 若文本不足，标注【文本未提供】，不要编造；
+6. 输出使用 Markdown 标题层级，表格优先。
+
+【模板·玄幻定制版】
+
+## 模块 1：基础信息
+填写说明：书名、题材（玄幻+二级标签）、字数、作者/平台/状态、拆解范围；另加流派（东方玄幻/洪荒/异世大陆等）、主角境界起点与终点。
+输出格式：表格。
+
+## 模块 2：一句话故事概括
+填写说明：1句话（主角+困境+机缘+终极目标），必须含境界跃升或宗门崛起元素。
+输出格式：单段引用块。
+
+## 模块 3：核心主线与支线梳理
+填写说明：主线按升级链拆（每个境界跃升标注章节+机缘来源）；支线每条列出（支线名、人物、与主线关系、结局）；标注机缘与主线交汇点。
+输出格式：升级链列表 + 支线列表。
+
+## 模块 4：主要人物及其动机与成长弧线
+填写说明：每人固定5项：身份标签、表层动机、深层动机（推断）、关键抉择（2-3个）、成长弧线（从A到B）。另加战力定位（当前境界+战力标尺）。
+输出格式：每人一个小节，6项分行。
+
+## 模块 5：世界观设定要点【玄幻专属】
+填写说明：固定6类：境界体系（等级+突破条件）、功法/神通（等级+来源）、势力格局（宗门/家族/皇朝）、秘境/机缘（地点+奖励）、丹药/法宝（品阶+作用）、天劫/代价（突破代价）。每条标注首次出现章节与剧情作用。
+输出格式：表格（类别|要点|首次出现|剧情作用）。
+
+## 模块 6：剧情结构拆解（开端、发展、高潮、结局）
+填写说明：四段拆解，每段含章节范围、核心事件（3-5个）、境界跃升点、情绪基调、段落功能。开端立困境+得机缘；发展升级打怪+秘境试炼；高潮终极大战+境界突破；结局宗门崛起/飞升。
+输出格式：四段小节。
+
+## 模块 7：爽点与伏笔标注【玄幻专属】
+填写说明：爽点每条标注章节+类型（越级战/打脸/收徒/夺宝/突破/揭秘）+战力对比（境界差）+情绪效果；伏笔每条标注埋设+回收+内容（重点标注机缘伏笔、身世伏笔）。至少各5条。
+输出格式：爽点列表 + 伏笔列表。
+
+## 模块 8：可复用的写作技巧总结
+填写说明：每条格式：技巧名+适用场景+操作步骤（3步内）+本书例证（章节）。至少5条，覆盖开篇机缘/升级节奏/越级战/秘境/身世反转。
+输出格式：编号列表。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl6')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 题材定制版 · 言情（可复制版）</h2>
+    <p>适合：古言/现言/甜宠/虐恋。专属：CP线、甜点/虐点、误会、修罗场。</p>
+    <div class="prompt-box" id="tpl7">你是一名言情小说分析师。请按下方【模板·言情定制版】拆解我提供的小说，重点拆解CP线、甜点/虐点与情感节奏。
+要求：
+1. 严格按 8 个模块输出，不要增删模块；
+2. 每个模块先给结论，再给依据（标注章节）；
+3. CP线必须拆到每次心动/误会/和好的具体章节；
+4. 区分【原文事实】与【合理推断】，推断标注“推断”；
+5. 若文本不足，标注【文本未提供】，不要编造；
+6. 输出使用 Markdown 标题层级，表格优先。
+
+【模板·言情定制版】
+
+## 模块 1：基础信息
+填写说明：书名、题材（言情+二级标签：古言/现言/甜宠/虐恋等）、字数、作者/平台/状态、拆解范围；另加CP组合（女主×男主）、结局类型（HE/BE/HE带虐）、视角（女主/男主/双视角）。
+输出格式：表格。
+
+## 模块 2：一句话故事概括
+填写说明：1句话（女主+男主+情感困境+结局），必须含CP关系与情感归宿。
+输出格式：单段引用块。
+
+## 模块 3：核心主线与支线梳理
+填写说明：主线按情感线拆（相遇→心动→误会→分离→重逢→圆满，每节点标注章节）；支线每条列出（支线名、人物、与主线关系、结局，重点标注修罗场/女配线）；标注情感线与事业线交汇点。
+输出格式：情感线节点列表 + 支线列表。
+
+## 模块 4：主要人物及其动机与成长弧线
+填写说明：每人固定5项：身份标签、表层动机、深层动机（推断）、关键抉择（2-3个情感转折点）、成长弧线（从A到B）。另加CP互动标签（如：傲娇×忠犬、冷酷×阳光）。
+输出格式：每人一个小节，6项分行。
+
+## 模块 5：世界观设定要点【言情专属】
+填写说明：固定5类：身份/地位差（门第/职位/能力）、相处场景（朝夕相处/契约/联姻等）、误会来源（信息差/身份隐瞒）、修罗场/情敌（女配/男配）、结局铺垫（HE/BE的关键条件）。每条标注首次出现章节与情感作用。
+输出格式：表格（类别|要点|首次出现|情感作用）。
+
+## 模块 6：剧情结构拆解（开端、发展、高潮、结局）
+填写说明：四段拆解，每段含章节范围、核心事件（3-5个）、情感基调（甜/虐/爽）、段落功能。开端相遇+心动；发展误会+分离；高潮真相揭晓+追妻/追夫；结局圆满/遗憾。
+输出格式：四段小节。
+
+## 模块 7：爽点与伏笔标注【言情专属】
+填写说明：爽点每条标注章节+类型（甜点/打脸/追妻/修罗场/揭秘）+情绪效果；伏笔每条标注埋设+回收+内容（重点标注身份伏笔、误会伏笔）。甜点与虐点分开列表，至少各5条。
+输出格式：甜点列表 + 虐点列表 + 伏笔列表。
+
+## 模块 8：可复用的写作技巧总结
+填写说明：每条格式：技巧名+适用场景+操作步骤（3步内）+本书例证（章节）。至少5条，覆盖相遇/心动/误会/追妻/结局。
+输出格式：编号列表。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl7')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2>📋 题材定制版 · 悬疑（可复制版）</h2>
+    <p>适合：推理/恐怖/灵异/刑侦。专属：线索链、嫌疑人、反转结构。</p>
+    <div class="prompt-box" id="tpl8">你是一名悬疑小说分析师。请按下方【模板·悬疑定制版】拆解我提供的小说，重点拆解线索链、嫌疑人与反转结构。
+要求：
+1. 严格按 8 个模块输出，不要增删模块；
+2. 每个模块先给结论，再给依据（标注章节）；
+3. 线索必须标注“出现章节+指向+是否误导”；
+4. 区分【原文事实】与【合理推断】，推断标注“推断”；
+5. 若文本不足，标注【文本未提供】，不要编造；
+6. 输出使用 Markdown 标题层级，表格优先。
+
+【模板·悬疑定制版】
+
+## 模块 1：基础信息
+填写说明：书名、题材（悬疑+二级标签：推理/恐怖/灵异/刑侦等）、字数、作者/平台/状态、拆解范围；另加核心诡计（一句话）、凶手/真相（若已揭晓）、叙事视角（第一/第三人称）。
+输出格式：表格。
+
+## 模块 2：一句话故事概括
+填写说明：1句话（主角+核心案件/诡异事件+终极真相），必须含悬念核心。
+输出格式：单段引用块。
+
+## 模块 3：核心主线与支线梳理
+填写说明：主线按案件链拆（案件1→案件2→终极真相，每节点标注章节+案件类型）；支线每条列出（支线名、人物、与主线关系、结局，重点标注嫌疑人线）；标注支线如何误导或推动主线。
+输出格式：案件链列表 + 支线列表。
+
+## 模块 4：主要人物及其动机与成长弧线
+填写说明：每人固定5项：身份标签、表层动机、深层动机（推断）、关键抉择（2-3个）、成长弧线（从A到B）。另加嫌疑度（高/中/低）+是否为凶手（推断）。
+输出格式：每人一个小节，6项分行。
+
+## 模块 5：世界观设定要点【悬疑专属】
+填写说明：固定5类：核心规则/诡异规则（禁忌+后果）、案件背景（时间/地点/人物关系）、线索载体（物证/证词/监控等）、嫌疑人关系网、真相揭晓方式（推理/自白/物证）。每条标注首次出现章节与悬疑作用。
+输出格式：表格（类别|要点|首次出现|悬疑作用）。
+
+## 模块 6：剧情结构拆解（开端、发展、高潮、结局）
+填写说明：四段拆解，每段含章节范围、核心事件（3-5个）、悬念强度（1-5分）、段落功能。开端案件抛出+规则立下；发展线索+误导+小反转；高潮真相揭晓+终极反转；结局收尾+余韵。
+输出格式：四段小节。
+
+## 模块 7：爽点与伏笔标注【悬疑专属】
+填写说明：爽点每条标注章节+类型（揭秘/反转/打脸/恐怖/推理高光）+情绪效果；伏笔每条标注埋设+回收+内容+是否误导（是/否）。爽点、伏笔至少各5条；反转点单独标注（至少3个）。
+输出格式：爽点列表 + 伏笔表 + 反转点列表。
+
+## 模块 8：可复用的写作技巧总结
+填写说明：每条格式：技巧名+适用场景+操作步骤（3步内）+本书例证（章节）。至少5条，覆盖开篇抛悬念/线索埋设/误导/反转/真相揭晓。
+输出格式：编号列表。
+
+小说文本如下：
+【在此粘贴小说正文/简介/目录】<button class="copy-btn" onclick="copyTemplate('tpl8')">复制</button></div>
+  </div>
+
+  <div class="section">
+    <h2 id="compare">🔍 8 套模板横向对比</h2>
+    <table>
+      <tr><th>对比项</th><th>① 严谨分析型</th><th>② 速记型</th><th>③ 写作参考型</th><th>④ 短剧改编型</th><th>⑤ 漫剧分集型</th><th>定制版</th></tr>
+      <tr><td>语言</td><td>正式、客观</td><td>极简、符号化</td><td>亲切、步骤化</td><td>分集导向</td><td>分话导向</td><td>题材专属</td></tr>
+      <tr><td>证据</td><td>标注章节+事实/推断</td><td>只记关键词</td><td>标注例证+改编提示</td><td>集数+钩子台词</td><td>话数+分镜要点</td><td>题材专属标注</td></tr>
+      <tr><td>人物</td><td>动机分层+弧线对比</td><td>一行三要素</td><td>人设公式+伤口+拐点</td><td>+打脸功能</td><td>+视觉人设+表情包</td><td>玄幻战力/言情CP/悬疑嫌疑度</td></tr>
+      <tr><td>世界观</td><td>表格+首次出现+作用</td><td>5 个短语</td><td>设定+写法+复用三列</td><td>设定+短剧用法+视觉化</td><td>设定+漫剧用法+视觉化</td><td>玄幻6类/言情5类/悬疑5类</td></tr>
+      <tr><td>结构</td><td>四段+功能</td><td>四段+关键词</td><td>四段+写法+节奏+复用模板</td><td>四段+集数+付费卡点</td><td>四段+话数+分镜</td><td>题材专属四段</td></tr>
+      <tr><td>爽点伏笔</td><td>位置+类型+内容</td><td>章节+类型+情绪词</td><td>铺垫+释放+复用提示</td><td>集数+钩子台词</td><td>话数+视觉爽点</td><td>玄幻越级战/言情甜虐/悬疑反转</td></tr>
+      <tr><td>技巧</td><td>技巧+步骤+例证</td><td>技巧+3步短语</td><td>技巧+步骤+例证+改编提示</td><td>+短剧改法（第X集）</td><td>+漫剧改法（第X话）</td><td>题材专属技巧</td></tr>
+      <tr><td>适合</td><td>深度研读、改编评估</td><td>快速复习、手机备忘</td><td>写作学习、改编参考</td><td>竖屏短剧开拍</td><td>漫剧直接制作</td><td>玄幻/言情/悬疑专属</td></tr>
+    </table>
+    <div class="callout"><b>完整版（含每个模块的填写说明+通用示例）：</b>请查看 <code>豆包小说拆解模板-合集.md</code>。本页面为可复制的精简指令版，方便直接粘贴到豆包。</div>
+  </div>
+</div>
+
+<div class="footer">豆包小说拆解模板 · 通用合集 8 套 · 示例小说《青云剑》《深夜直播》为虚构示例，仅示范格式</div>
+<div class="toast" id="toast">已复制 ✓ 粘贴到豆包即可使用</div>
+
+<script>
+function copyTemplate(id){
+  var el=document.getElementById(id);
+  var clone=el.cloneNode(true);
+  var btns=clone.querySelectorAll('button');
+  for(var i=0;i<btns.length;i++){btns[i].parentNode.removeChild(btns[i]);}
+  var text=clone.textContent.trim();
+  function done(){
+    var t=document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(function(){t.classList.remove('show')},2000);
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){fallback(text,done)});
+  }else{fallback(text,done)}
+}
+function fallback(text,cb){
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');cb()}catch(e){}
+  document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>

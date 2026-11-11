@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫剧制作零基础大白话教程</title>
+<style>
+:root{--bg:#0f0f1a;--card:#1a1a2e;--card2:#22223a;--accent:#ff6b9d;--accent2:#6c5ce7;--gold:#fdcb6e;--green:#00d2a8;--text:#f0f0f5;--muted:#a0a0b8;--border:#2d2d4a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+a{color:var(--accent);text-decoration:none}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(15,15,26,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;gap:12px}
+.topbar .logo{font-size:20px;font-weight:800;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.topbar .sub{color:var(--muted);font-size:13px}
+.progress-wrap{flex:1;height:6px;background:var(--card2);border-radius:99px;overflow:hidden;max-width:300px}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width .3s}
+.hero{max-width:1100px;margin:0 auto;padding:40px 20px 20px;text-align:center}
+.hero h1{font-size:clamp(28px,5vw,48px);font-weight:900;line-height:1.3}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--muted);max-width:700px;margin:16px auto;font-size:16px}
+.hero-img{max-width:420px;width:100%;border-radius:20px;box-shadow:0 20px 60px rgba(255,107,157,.25);margin:20px auto;display:block}
+.badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.badge{background:var(--card2);border:1px solid var(--border);padding:6px 14px;border-radius:99px;font-size:13px;color:var(--muted)}
+.badge b{color:var(--text)}
+.layout{max-width:1100px;margin:0 auto;padding:0 20px 60px;display:grid;grid-template-columns:220px 1fr;gap:24px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.sidebar{display:none}}
+.sidebar{position:sticky;top:70px;height:fit-content;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px}
+.sidebar h3{font-size:14px;color:var(--muted);margin-bottom:10px;letter-spacing:1px}
+.sidebar a{display:block;padding:8px 10px;border-radius:8px;color:var(--muted);font-size:14px}
+.sidebar a:hover,.sidebar a.active{background:var(--card2);color:var(--text)}
+.chapter{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:24px}
+.chapter h2{font-size:24px;margin-bottom:6px}
+.chapter h2 .num{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:13px;padding:3px 10px;border-radius:99px;margin-right:8px;vertical-align:middle}
+.chapter h3{font-size:18px;margin:22px 0 10px;color:var(--gold)}
+.chapter p{color:#d5d5e8;margin:8px 0}
+.chapter ul,.chapter ol{margin:8px 0 8px 22px;color:#d5d5e8}
+.chapter li{margin:4px 0}
+.callout{background:linear-gradient(135deg,rgba(255,107,157,.12),rgba(108,92,231,.12));border:1px solid rgba(255,107,157,.3);border-radius:12px;padding:14px 16px;margin:14px 0}
+.callout b{color:var(--accent)}
+.tip{background:rgba(0,210,168,.1);border:1px solid rgba(0,210,168,.3);border-radius:12px;padding:14px 16px;margin:14px 0}
+.tip b{color:var(--green)}
+.warn{background:rgba(253,203,110,.1);border:1px solid rgba(253,203,110,.3);border-radius:12px;padding:14px 16px;margin:14px 0}
+.warn b{color:var(--gold)}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;overflow:hidden;border-radius:12px}
+th{background:var(--card2);padding:10px;text-align:left;color:var(--gold)}
+td{padding:10px;border-top:1px solid var(--border);color:#d5d5e8;vertical-align:top}
+tr:hover td{background:rgba(255,255,255,.02)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:16px 0}
+.flow .step{background:var(--card2);border:1px solid var(--border);padding:10px 16px;border-radius:12px;font-weight:700;font-size:14px;text-align:center}
+.flow .step small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.flow .arrow{color:var(--accent);font-weight:900;font-size:18px}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:16px 0}
+.case-card{background:var(--card2);border:1px solid var(--border);border-radius:16px;padding:18px}
+.case-card h4{font-size:16px;margin-bottom:8px}
+.case-card .tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;margin-right:6px}
+.tag-pink{background:rgba(255,107,157,.2);color:var(--accent)}
+.tag-blue{background:rgba(108,92,231,.2);color:#a29bfe}
+.tag-dark{background:rgba(0,0,0,.4);color:#b2bec3}
+.case-card p,.case-card li{font-size:14px;color:#d5d5e8}
+.case-card ul{margin-left:18px}
+.img-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:16px 0}
+.img-row figure{background:var(--card2);border-radius:16px;overflow:hidden;border:1px solid var(--border)}
+.img-row img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover}
+.img-row figcaption{padding:10px 14px;font-size:13px;color:var(--muted)}
+.checklist{list-style:none;margin:12px 0}
+.checklist li{padding:8px 12px;background:var(--card2);border-radius:10px;margin:6px 0;font-size:14px}
+.checklist li::before{content:"☐ ";color:var(--accent);font-weight:900}
+.prompt-box{background:#0a0a14;border:1px solid var(--border);border-radius:12px;padding:14px;font-family:monospace;font-size:13px;color:#a5f3c5;margin:10px 0;white-space:pre-wrap;word-break:break-all;position:relative}
+.copy-btn{position:absolute;top:8px;right:8px;background:var(--accent2);color:#fff;border:none;padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer}
+.plan{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.plan-card{background:var(--card2);border-radius:14px;padding:16px;border-top:4px solid var(--accent)}
+.plan-card:nth-child(2){border-top-color:var(--accent2)}
+.plan-card:nth-child(3){border-top-color:var(--gold)}
+.plan-card h4{margin-bottom:6px}
+.plan-card p{font-size:13px;color:var(--muted)}
+.footer{text-align:center;color:var(--muted);font-size:13px;padding:30px 20px;border-top:1px solid var(--border)}
+.toc-mobile{display:none}
+@media(max-width:800px){.toc-mobile{display:block;margin-bottom:12px}.toc-mobile select{width:100%;padding:10px;border-radius:10px;background:var(--card2);color:var(--text);border:1px solid var(--border)}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">🎬 漫剧制作教程</div>
+  <div class="sub">零基础 · 大白话 · 图文并茂 · 以豆包为准</div>
+  <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+
+<div class="hero">
+  <h1>从零开始学<span>漫剧制作</span><br>大白话图文教程</h1>
+  <p>漫剧 = 漫画的画面 + 动画的动态 + 短剧的节奏 + 配音的情绪。本教程按「概念 → 流程 → 每个环节的多个实战案例 → 完整成片拆解」编写，零基础照着做就能出第一条漫剧。<b>工具以豆包为准</b>：选题、剧本、分镜、提示词、配音稿全用豆包，生图用豆包生图，剪辑动态用剪映——每步都有图解和可复制提示词。</p>
+  <img class="hero-img" src="assets/hero-manhua.jpg" alt="漫剧封面示意">
+  <div class="badge-row">
+    <span class="badge">📚 <b>11 章</b>完整内容</span>
+    <span class="badge">🖼 <b>10+ 张</b>步骤图解</span>
+    <span class="badge">🤖 <b>豆包</b>全流程提示词</span>
+    <span class="badge">⏱ <b>30 天</b>学习计划</span>
+    <span class="badge">💰 <b>0 元</b>起步方案</span>
+  </div>
+  <div class="flow" style="justify-content:center">
+    <div class="step">选题<small>定方向</small></div><span class="arrow">→</span>
+    <div class="step">剧本<small>定剧情</small></div><span class="arrow">→</span>
+    <div class="step">分镜<small>定镜头</small></div><span class="arrow">→</span>
+    <div class="step">角色场景<small>定画面</small></div><span class="arrow">→</span>
+    <div class="step">配音<small>定情绪</small></div><span class="arrow">→</span>
+    <div class="step">动态<small>让图动</small></div><span class="arrow">→</span>
+    <div class="step">剪辑<small>定节奏</small></div><span class="arrow">→</span>
+    <div class="step">发布<small>定流量</small></div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <h3>📖 目录</h3>
+    <a href="#ch0">第 0 章 · 概念</a>
+    <a href="#ch1">第 1 章 · 工具箱</a>
+    <a href="#ch2">第 2 章 · 剧本</a>
+    <a href="#ch3">第 3 章 · 分镜</a>
+    <a href="#ch4">第 4 章 · 角色场景</a>
+    <a href="#ch5">第 5 章 · 配音</a>
+    <a href="#ch6">第 6 章 · 动态</a>
+    <a href="#ch7">第 7 章 · 剪辑</a>
+    <a href="#ch8">第 8 章 · 发布</a>
+    <a href="#ch9">第 9 章 · 完整案例</a>
+    <a href="#ch10">第 10 章 · 避坑+计划</a>
+  </aside>
+
+  <main>
+    <div class="toc-mobile"><select onchange="location.hash=this.value"><option value="">📖 跳转到章节…</option><option value="#ch0">第 0 章 · 概念</option><option value="#ch1">第 1 章 · 工具箱</option><option value="#ch2">第 2 章 · 剧本</option><option value="#ch3">第 3 章 · 分镜</option><option value="#ch4">第 4 章 · 角色场景</option><option value="#ch5">第 5 章 · 配音</option><option value="#ch6">第 6 章 · 动态</option><option value="#ch7">第 7 章 · 剪辑</option><option value="#ch8">第 8 章 · 发布</option><option value="#ch9">第 9 章 · 完整案例</option><option value="#ch10">第 10 章 · 避坑+计划</option></select></div>
+
+    <!-- CH0 -->
+    <section class="chapter" id="ch0">
+      <h2><span class="num">第 0 章</span>先搞懂漫剧到底是什么</h2>
+      <p>想象一下：你刷到一条竖屏视频，画面是精美的漫画风，人物会眨眼、转头，背景有飘落的花瓣，耳边传来配音和 BGM，剧情像短剧一样一集接一集——<b>这就是漫剧</b>。</p>
+      <div class="callout"><b>大白话记忆法：</b>漫剧就是「用漫画当底图，用动画的手法让它动起来，再配上短剧的台词和节奏」。</div>
+      <h3>漫剧 vs 其他形式</h3>
+      <table>
+        <tr><th>形式</th><th>画面</th><th>动态</th><th>配音</th><th>成本</th><th>适合</th></tr>
+        <tr><td>漫画/条漫</td><td>静态图</td><td>无</td><td>无</td><td>低</td><td>喜欢画画的人</td></tr>
+        <tr><td>有声剧</td><td>无画面</td><td>无</td><td>有</td><td>低</td><td>听故事的人</td></tr>
+        <tr><td>真人短剧</td><td>真人实拍</td><td>全动态</td><td>现场收音</td><td>高</td><td>有演员/设备的人</td></tr>
+        <tr><td>传统动画</td><td>手绘/3D</td><td>全动态</td><td>专业配音</td><td>很高</td><td>团队</td></tr>
+        <tr><td><b>漫剧</b></td><td><b>漫画风插画</b></td><td><b>局部动态</b></td><td><b>AI/真人</b></td><td><b>中低</b></td><td><b>个人/小团队，新手友好</b></td></tr>
+      </table>
+      <h3>漫剧的 4 种常见类型</h3>
+      <ol>
+        <li><b>动态漫（图层动画型）：</b>最主流。把漫画拆成人物层、背景层、特效层，做眨眼、口型、推拉镜头。</li>
+        <li><b>条漫改编型：</b>把现成的条漫直接做动态化，适合有 IP 的团队。</li>
+        <li><b>AI 漫剧：</b>AI 生成画面+配音+动效，速度最快，适合测试题材。</li>
+        <li><b>竖屏漫剧：</b>专为抖音/快手优化，9:16 竖屏，单集 1-3 分钟，强钩子、强反转。</li>
+      </ol>
+      <div class="tip"><b>新手建议：</b>从「动态漫 + 竖屏」起步，成本最低、变现最快。</div>
+      <h3>全流程产出物</h3>
+      <table>
+        <tr><th>环节</th><th>产出物</th><th>一句话说明</th></tr>
+        <tr><td>选题</td><td>一句话梗概</td><td>决定你做什么，不做错方向</td></tr>
+        <tr><td>剧本</td><td>分集大纲+台词稿</td><td>决定观众看不看得下去</td></tr>
+        <tr><td>分镜</td><td>分镜表+草图</td><td>把文字变成镜头</td></tr>
+        <tr><td>角色/场景</td><td>设定表+场景图</td><td>决定画面好不好看</td></tr>
+        <tr><td>配音</td><td>干声+混音</td><td>决定情绪对不对</td></tr>
+        <tr><td>动态</td><td>动效工程文件</td><td>让画面活起来</td></tr>
+        <tr><td>剪辑</td><td>成片 MP4</td><td>决定节奏和完播率</td></tr>
+        <tr><td>发布</td><td>标题/封面/简介</td><td>决定有没有人点进来</td></tr>
+      </table>
+      <div class="warn"><b>新手最大的误区：</b>一上来就画图做动画。正确顺序是先把剧本和分镜做扎实——<b>剧本不行，画面再美也没人看完</b>。</div>
+    </section>
+
+    <!-- CH1 -->
+    <section class="chapter" id="ch1">
+      <h2><span class="num">第 1 章</span>工具箱（以豆包为核心）</h2>
+      <p>原则：<b>先用免费工具跑通全流程，再考虑付费升级</b>。全流程只需 2 个核心工具：<b>豆包（AI 大脑）+ 剪映（制作车间）</b>。</p>
+      <div class="img-row">
+        <figure><img src="assets/doubao-script.jpg" alt="用豆包写剧本"><figcaption>图 1-1：用豆包写剧本——把选题告诉豆包，它直接输出大纲+台词+分镜表</figcaption></figure>
+      </div>
+      <div class="callout"><b>为什么以豆包为准？</b>① 免费、中文理解强，写剧本台词最像「人话」；② 能写（剧本/分镜/提示词）也能画（生图），一个工具干三件事；③ 和剪映同属字节生态，产物无缝衔接。出问题先怀疑提示词，不要急着换工具。</div>
+      <table>
+        <tr><th>环节</th><th>首选（以豆包为准）</th><th>备选</th><th>说明</th></tr>
+        <tr><td>选题/剧本/台词</td><td><b>豆包</b></td><td>ChatGPT、Kimi</td><td>附录 D 提示词直接出大纲+台词稿</td></tr>
+        <tr><td>分镜表</td><td><b>豆包</b></td><td>手画草图</td><td>按 6 要素直接输出表格</td></tr>
+        <tr><td>画图/生图</td><td><b>豆包生图</b></td><td>即梦AI、SD本地</td><td>发附录 B 提示词即可出图</td></tr>
+        <tr><td>配音稿</td><td><b>豆包</b>（情绪标注稿）</td><td>—</td><td>稿子给剪映 AI 配音用</td></tr>
+        <tr><td>配音</td><td>剪映AI配音</td><td>豆包语音试听、真人</td><td>音色全剧统一</td></tr>
+        <tr><td>动态</td><td>剪映（关键帧）</td><td>AE入门、Live2D免费版</td><td>新手用剪映足够</td></tr>
+        <tr><td>剪辑</td><td>剪映手机版</td><td>剪映电脑版、达芬奇</td><td>配音+动态+剪辑三合一</td></tr>
+        <tr><td>封面/字幕</td><td>剪映、醒图</td><td>Canva</td><td>封面大字对比要强</td></tr>
+      </table>
+      <h3>新手推荐的一套组合</h3>
+      <ul>
+        <li><b>纯手机路线（零成本）：</b>豆包 App（选题→剧本→分镜→提示词→生图）+ 剪映手机版（配音+动态+剪辑）</li>
+        <li><b>电脑路线（效率更高）：</b>豆包网页版 + 剪映电脑版（改图用 Krita）</li>
+        <li><b>进阶路线：</b>豆包打底 + AE 做动态 + PR/达芬奇剪辑 + Live2D 骨骼动画</li>
+      </ul>
+      <div class="tip"><b>记忆法：</b>豆包是编剧部，剪映是制片厂。所有「想」的事问豆包，所有「做」的事在剪映。</div>
+      <h3>案例：豆包 + 剪映，10 分钟做出第一条漫剧</h3>
+      <ol>
+        <li>打开<b>豆包</b> → 发附录 D「单集剧本提示词」+ 你的选题 → 复制台词稿</li>
+        <li>豆包生图 → 生成 1 张漫画风竖屏图 → 保存到相册</li>
+        <li>打开<b>剪映</b> → 新建项目 → 导入这张图</li>
+        <li>点击「文本 → 智能配音」→ 粘贴台词 → 选音色 → 生成配音</li>
+        <li>选中图片 → 点击「动画」→ 选「推镜」→ 设置 3 秒；「音频 → 音乐」选 BGM，音量 15%</li>
+        <li>「文本 → 新建文本」输入字幕（黄色描边）→ 导出 1080×1920 → 发布</li>
+      </ol>
+      <div class="tip"><b>记住：</b>这 6 步就是漫剧的最小闭环。先做出一条丑的，再做一条美的。</div>
+    </section>
+
+    <!-- CH2 -->
+    <section class="chapter" id="ch2">
+      <h2><span class="num">第 2 章</span>选题与剧本</h2>
+      <div class="img-row">
+        <figure><img src="assets/topic-idea.jpg" alt="选题构思"><figcaption>图 2-1：选题构思——脑图发散 + 刷平台找感觉，再用 3 个问题收敛</figcaption></figure>
+      </div>
+      <h3>选题：3 个问题</h3>
+      <ol>
+        <li><b>题材对不对？</b>新手优先选：古风甜宠、都市逆袭、霸总虐恋、悬疑恐怖、校园青春。</li>
+        <li><b>钩子够不够？</b>公式：身份反差 + 悬念 + 情绪，一句话让人想点进来。</li>
+        <li><b>能不能持续产出？</b>选一个能连载 20 集以上的画风。</li>
+      </ol>
+      <div class="callout"><b>选题公式（套用即可）：</b><br>古风甜宠：[冷酷王爷] × [穿越小医女] + 一见钟情<br>都市逆袭：[被抛弃的赘婿] + [隐藏身份] + 打脸逆袭<br>悬疑恐怖：[深夜直播] + [禁忌规则] + 层层反转</div>
+      <h3>单集结构：3 秒钩子 + 30 秒铺垫 + 60 秒冲突 + 30 秒反转</h3>
+      <table>
+        <tr><th>时间</th><th>作用</th><th>例子</th></tr>
+        <tr><td>0-3 秒（钩子）</td><td>必须有冲突或悬念，不能有片头</td><td>「你不是说你只是个送外卖的吗？！」</td></tr>
+        <tr><td>3-30 秒（铺垫）</td><td>交代人物关系和处境</td><td>快速带入</td></tr>
+        <tr><td>30-90 秒（冲突）</td><td>冲突升级，情绪拉满</td><td>观众开始上头</td></tr>
+        <tr><td>90-120 秒（反转）</td><td>抛出新信息或反转</td><td>逼观众点下一集</td></tr>
+      </table>
+      <h3>3 个完整剧本案例</h3>
+      <div class="case-grid">
+        <div class="case-card">
+          <h4><span class="tag tag-pink">古风甜宠</span>《医妃倾城》第 1 集</h4>
+          <p><b>梗概：</b>现代外科医生穿越成被冷落的王妃，第一天就救了刺杀王爷的刺客。</p>
+          <ul>
+            <li>0-3s 王妃睁眼：「我……穿越了？！」+心跳声</li>
+            <li>3-15s 旁白：三月前她嫁入王府，王爷从未正眼看过她</li>
+            <li>15-40s 刺客闯入，王爷受伤倒地</li>
+            <li>40-70s 王妃按压伤口：「别动！再乱动你会失血过多！」</li>
+            <li>70-100s 王爷睁眼：「你……会医术？」</li>
+            <li>100-120s 王妃内心：这王爷……好像认识我？（悬念黑屏）</li>
+          </ul>
+          <p style="color:var(--green);margin-top:8px">✓ 3 秒有穿越钩子，结尾「好像认识我」留悬念</p>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-blue">都市逆袭</span>《赘婿归来》第 1 集</h4>
+          <p><b>梗概：</b>被全家看不起的赘婿，在岳父寿宴上被当众羞辱，却接到「少爷，集团等您回去」。</p>
+          <ul>
+            <li>0-3s 岳母摔红包：「你也配吃这顿饭？滚出去！」</li>
+            <li>3-20s 男主低头，众人嘲笑，旁白：他忍了三年</li>
+            <li>20-50s 岳父宣布断绝关系</li>
+            <li>50-80s 手机震动：「少爷，董事长病危，集团等您回去」</li>
+            <li>80-110s 男主抬头，眼神变冷：「好，我这就回去」</li>
+            <li>110-120s 岳母愣住：「他刚才说什么？」（悬念）</li>
+          </ul>
+          <p style="color:var(--green);margin-top:8px">✓ 开头羞辱冲突强，「少爷」是身份反差钩子</p>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-dark">悬疑恐怖</span>《深夜直播》第 1 集</h4>
+          <p><b>梗概：</b>主播在废弃医院直播探灵，弹幕刷出「主播，别回头，你身后站着一个人」。</p>
+          <ul>
+            <li>0-3s 主播对镜头笑，弹幕：主播，别回头！</li>
+            <li>3-20s 主播转身，空无一人：「哈哈吓我？」</li>
+            <li>20-50s 弹幕刷屏「他动了」，主播笑容僵住</li>
+            <li>50-80s 墙面湿脚印：「这……这脚印哪来的？」</li>
+            <li>80-110s 主播回头，镜头剧烈晃动：「谁？！」</li>
+            <li>110-120s 黑屏，系统音：直播间人数 10 万+</li>
+          </ul>
+          <p style="color:var(--green);margin-top:8px">✓ 靠信息差推进，结尾人数暴涨是反转钩子</p>
+        </div>
+      </div>
+      <h3>剧本写作 5 个铁律</h3>
+      <ol>
+        <li><b>台词要短：</b>每句不超过 15 字，长台词拆成两句。</li>
+        <li><b>少旁白，多对话：</b>旁白每集不超过 3 句。</li>
+        <li><b>每集一个情绪点：</b>甜/虐/爽/吓，整集只打一个情绪。</li>
+        <li><b>结尾必须留钩子：</b>悬念、反转、危机三选一。</li>
+        <li><b>先写大纲再写台词：</b>大纲 200 字，台词 300 字。</li>
+      </ol>
+      <h3>用豆包 3 分钟写出一集剧本（复制即用）</h3>
+      <div class="prompt-box">你是一名竖屏漫剧编剧。请为我写第 1 集剧本，要求：
+1. 题材：【填：古风甜宠/都市逆袭/悬疑恐怖】；一句话梗概：【填你的想法】；
+2. 时长 120 秒，按「3秒钩子+30秒铺垫+60秒冲突+30秒反转/悬念」结构；
+3. 先给 200 字大纲，再给台词表（时间|画面/动作|台词|音效/BGM 四列）；
+4. 每句台词不超过 15 字，旁白不超过 3 句，台词前标注情绪；
+5. 结尾必须留钩子（悬念/反转/危机三选一）。<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <div class="tip"><b>改编小说？</b>先用仓库 novel-templates/ 里的《豆包小说拆解模板》把小说拆成「主线+人物+爽点」，再把拆解结果粘贴给豆包套用上面的提示词——剧情骨架直接就有了。</div>
+    </section>
+
+    <!-- CH3 -->
+    <section class="chapter" id="ch3">
+      <h2><span class="num">第 3 章</span>分镜脚本</h2>
+      <p>分镜就是<b>把剧本翻译成镜头</b>。剧本说「王妃救王爷」，分镜要拆成：王妃特写 → 王爷倒地全景 → 王妃冲过去中景 → 按压伤口特写 → 王爷睁眼近景 → 对视特写。</p>
+      <div class="img-row">
+        <figure><img src="assets/storyboard.jpg" alt="分镜示意"><figcaption>分镜板示意：同一场景从远景到特写的镜头变化，标注镜头运动箭头</figcaption></figure>
+      </div>
+      <h3>分镜表 6 要素</h3>
+      <table>
+        <tr><th>要素</th><th>说明</th><th>例子</th></tr>
+        <tr><td>镜号</td><td>镜头编号</td><td>01、02、03</td></tr>
+        <tr><td>景别</td><td>远景/全景/中景/近景/特写</td><td>特写（只拍脸）</td></tr>
+        <tr><td>画面内容</td><td>这一镜拍什么</td><td>王妃睁眼，惊恐表情</td></tr>
+        <tr><td>镜头运动</td><td>静止/推/拉/摇/跟</td><td>缓慢推近</td></tr>
+        <tr><td>台词/音效</td><td>这一镜说什么、听什么</td><td>台词+心跳声</td></tr>
+        <tr><td>时长</td><td>这一镜几秒</td><td>3 秒</td></tr>
+      </table>
+      <h3>景别速查（新手必背）</h3>
+      <table>
+        <tr><th>景别</th><th>作用</th><th>例子</th></tr>
+        <tr><td>远景</td><td>交代环境</td><td>王府全貌、城市夜景</td></tr>
+        <tr><td>全景</td><td>交代人物位置关系</td><td>两人站在院子里</td></tr>
+        <tr><td>中景</td><td>拍到腰部以上（对话、动作）</td><td>对话戏常用</td></tr>
+        <tr><td>近景</td><td>拍到肩部以上（情绪、表情）</td><td>情绪戏常用</td></tr>
+        <tr><td>特写</td><td>只拍脸/手/眼睛</td><td>震惊、流泪、握拳</td></tr>
+      </table>
+      <div class="warn"><b>铁律：</b>对话用中景/近景，情绪用特写，交代环境用远景。<b>连续 3 个镜头不能用同一个景别</b>，否则画面会闷。</div>
+      <h3>案例 A：《医妃倾城》分镜表（8 镜）</h3>
+      <table>
+        <tr><th>镜号</th><th>景别</th><th>画面内容</th><th>镜头运动</th><th>台词/音效</th><th>时长</th></tr>
+        <tr><td>01</td><td>特写</td><td>王妃睁眼，瞳孔收缩</td><td>静止</td><td>内心：我穿越了？！+心跳</td><td>3s</td></tr>
+        <tr><td>02</td><td>远景</td><td>王府夜景，灯火</td><td>缓慢推近</td><td>旁白：三月前她嫁入王府</td><td>5s</td></tr>
+        <tr><td>03</td><td>中景</td><td>王爷背对王妃，冷漠转身</td><td>静止</td><td>王爷：退下</td><td>4s</td></tr>
+        <tr><td>04</td><td>全景</td><td>刺客破窗而入，王爷倒地</td><td>快速摇镜</td><td>刺客：受死！+刀剑声</td><td>5s</td></tr>
+        <tr><td>05</td><td>中景</td><td>王妃冲上前，跪地按压伤口</td><td>跟拍</td><td>王妃：别动！</td><td>5s</td></tr>
+        <tr><td>06</td><td>特写</td><td>王妃的手按在伤口上，血流</td><td>静止</td><td>紧张鼓点</td><td>3s</td></tr>
+        <tr><td>07</td><td>近景</td><td>王爷睁眼，第一次认真看她</td><td>缓慢推近</td><td>王爷：你会医术？</td><td>4s</td></tr>
+        <tr><td>08</td><td>特写</td><td>王妃抬头，眼神一顿</td><td>静止</td><td>内心：他好像认识我+悬念音</td><td>3s</td></tr>
+      </table>
+      <h3>案例 B：羞辱戏分镜（逆袭题材）</h3>
+      <p>要点：<b>先拍羞辱者，再拍被羞辱者，最后拍反转</b>。</p>
+      <table>
+        <tr><th>镜号</th><th>景别</th><th>画面内容</th><th>台词</th><th>时长</th></tr>
+        <tr><td>01</td><td>近景</td><td>岳母冷笑，摔红包</td><td>岳母：滚出去！</td><td>3s</td></tr>
+        <tr><td>02</td><td>特写</td><td>红包落在男主脚边</td><td>摔纸声</td><td>2s</td></tr>
+        <tr><td>03</td><td>中景</td><td>男主低头，众人围笑</td><td>旁白：他忍了三年</td><td>5s</td></tr>
+        <tr><td>04</td><td>近景</td><td>岳父宣布断绝关系</td><td>岳父：不许再踏入！</td><td>4s</td></tr>
+        <tr><td>05</td><td>特写</td><td>男主手机震动</td><td>电话铃声</td><td>2s</td></tr>
+        <tr><td>06</td><td>近景</td><td>男主接电话，眼神变冷</td><td>电话音：少爷，集团等您</td><td>4s</td></tr>
+        <tr><td>07</td><td>中景</td><td>男主转身离开，众人愣住</td><td>岳母：他说什么？</td><td>4s</td></tr>
+      </table>
+      <h3>案例 C：恐怖戏分镜（悬疑题材）</h3>
+      <p>要点：<b>先给观众看「异常」，再给主播看「异常」，最后给观众看「更异常」</b>，层层加码。</p>
+      <table>
+        <tr><th>镜号</th><th>景别</th><th>画面内容</th><th>台词/音效</th><th>时长</th></tr>
+        <tr><td>01</td><td>中景</td><td>主播对镜头笑，弹幕飘过</td><td>弹幕：别回头！</td><td>3s</td></tr>
+        <tr><td>02</td><td>全景</td><td>主播转身，身后空无一人</td><td>主播：哈哈吓我？</td><td>4s</td></tr>
+        <tr><td>03</td><td>特写</td><td>弹幕刷屏「他动了」</td><td>电子音</td><td>3s</td></tr>
+        <tr><td>04</td><td>近景</td><td>主播笑容僵住</td><td>主播：别闹了</td><td>3s</td></tr>
+        <tr><td>05</td><td>特写</td><td>墙面湿脚印</td><td>脚步声</td><td>4s</td></tr>
+        <tr><td>06</td><td>近景</td><td>主播颤抖回头</td><td>主播：谁？！</td><td>3s</td></tr>
+        <tr><td>07</td><td>黑屏</td><td>只剩系统音</td><td>人数10万+</td><td>3s</td></tr>
+      </table>
+      <h3>新手做分镜的 3 个方法</h3>
+      <ol>
+        <li><b>豆包文字分镜（最快，推荐）：</b>把剧本发给豆包，直接要 6 要素表格（提示词见下）。</li>
+        <li><b>草图分镜：</b>铅笔火柴人草图 + 镜头运动箭头。</li>
+        <li><b>AI 分镜草图：</b>把豆包输出的分镜表逐镜发给豆包生图，生成每镜草图。</li>
+      </ol>
+      <div class="prompt-box">你是漫剧分镜师。请把我下面的剧本拆成分镜表，要求：
+1. 严格输出 6 列表格：镜号|景别|画面内容|镜头运动|台词/音效|时长；
+2. 每镜 2-6 秒，一集 6-10 镜，连续 3 镜不重复景别；
+3. 对话用中景/近景，情绪用特写，环境用远景；
+4. 第 1 镜必须是钩子（冲突/悬念），最后 1 镜必须留钩子。
+剧本：【粘贴上一步豆包生成的台词稿】<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+    </section>
+
+    <!-- CH4 -->
+    <section class="chapter" id="ch4">
+      <h2><span class="num">第 4 章</span>角色与场景设计</h2>
+      <p>角色设计先做<b>「设定表」</b>：三视图（正/侧/背）+ 表情包（喜/怒/哀/乐）+ 服装配色 + 身高比例。</p>
+      <div class="img-row">
+        <figure><img src="assets/character-design.jpg" alt="角色设定表"><figcaption>图 4-1：角色设定表——三视图 + 表情包 + 配色标注，全剧照这张图保持统一</figcaption></figure>
+        <figure><img src="assets/urban-revenge.jpg" alt="都市逆袭封面"><figcaption>图 4-2：都市逆袭风场景/封面——冷色调、强对比，和古风是两套配色逻辑</figcaption></figure>
+      </div>
+      <h3>画风选择</h3>
+      <table>
+        <tr><th>题材</th><th>推荐画风</th><th>主色</th></tr>
+        <tr><td>古风甜宠</td><td>国风厚涂 / 扁平插画</td><td>粉、青、白</td></tr>
+        <tr><td>都市逆袭</td><td>现代写实风 / 韩漫风</td><td>黑、白、蓝</td></tr>
+        <tr><td>悬疑恐怖</td><td>暗黑风 / 水彩风</td><td>黑、灰、血红</td></tr>
+      </table>
+      <div class="callout"><b>关键原则：</b>一个角色只用 3 个主色（肤色+发色+服装色），全剧统一。换衣服可以，换画风不行。</div>
+      <h3>3 个角色设定案例</h3>
+      <div class="case-grid">
+        <div class="case-card">
+          <h4><span class="tag tag-pink">古风女主</span>沈清辞</h4>
+          <ul>
+            <li><b>身份：</b>现代外科医生穿越成的王妃，25 岁</li>
+            <li><b>外貌：</b>黑长直发、杏眼、左眼下小痣（识别点）</li>
+            <li><b>服装：</b>月白交领襦裙+青色披帛（日常）、红色嫁衣（高光戏）</li>
+            <li><b>配色：</b>肤 #FDE8E0、发 #2B2B2B、衣 #E8F0E8</li>
+            <li><b>表情包：</b>震惊、冷静、心动、愤怒</li>
+          </ul>
+          <div class="prompt-box">古风少女，黑长直，杏眼，左眼下小痣，月白交领襦裙，青色披帛，国风插画，精致线条，柔和配色，白色背景，三视图<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-blue">都市男主</span>陆沉</h4>
+          <ul>
+            <li><b>身份：</b>隐藏身份的集团继承人，28 岁</li>
+            <li><b>外貌：</b>短发、剑眉、轮廓锋利（前期颓废、后期霸气）</li>
+            <li><b>服装：</b>前期灰色卫衣+牛仔裤、后期黑西装+金丝眼镜</li>
+            <li><b>配色：</b>肤 #F5D5C0、发 #1A1A1A、衣 #888888 / #111111</li>
+            <li><b>表情包：</b>隐忍、冷笑、霸气、震惊</li>
+          </ul>
+          <div class="prompt-box">现代年轻男子，短发，剑眉，黑西装，金丝眼镜，韩漫风，冷色调，精致五官，白色背景，三视图<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-dark">悬疑主播</span>小北</h4>
+          <ul>
+            <li><b>身份：</b>探灵主播，22 岁</li>
+            <li><b>外貌：</b>丸子头、圆脸、笑起来有酒窝</li>
+            <li><b>服装：</b>黑色卫衣+运动裤+耳机</li>
+            <li><b>配色：</b>肤 #FDE8E0、发 #3B2B20、衣 #222222</li>
+            <li><b>表情包：</b>阳光笑、疑惑、惊恐、崩溃</li>
+          </ul>
+          <div class="prompt-box">现代少女主播，丸子头，黑色卫衣，戴耳机，暗黑悬疑风，冷色调，白色背景，三视图<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+        </div>
+      </div>
+      <h3>场景设计：3 个场景够用一集</h3>
+      <table>
+        <tr><th>场景</th><th>作用</th><th>制作要点</th></tr>
+        <tr><td>主场景</td><td>80% 戏份都在这</td><td>做一张大图，靠推拉镜头出变化</td></tr>
+        <tr><td>副场景</td><td>换气、交代环境</td><td>AI 生图快速生成</td></tr>
+        <tr><td>特效场景</td><td>情绪高光（回忆/梦境）</td><td>加滤镜、粒子、转场即可</td></tr>
+      </table>
+      <div class="tip"><b>豆包生图技巧：</b>提示词加「空镜，无人物，竖屏 9:16，电影感光影」，生成后统一调色，保证全剧色调一致。不满意就同一句话里追加修改（如「头发再短一点，背景改成夜景」），比换工具重写提示词快得多。</div>
+    </section>
+
+    <!-- CH5 -->
+    <section class="chapter" id="ch5">
+      <h2><span class="num">第 5 章</span>配音与音效</h2>
+      <div class="img-row">
+        <figure><img src="assets/dubbing.jpg" alt="配音工作台"><figcaption>图 5-1：配音工作台——麦克风 + 耳机 + 波形监看，AI 配音也照这个流程走</figcaption></figure>
+      </div>
+      <h3>配音的 3 种方案</h3>
+      <table>
+        <tr><th>方案</th><th>成本</th><th>速度</th><th>效果</th><th>适合</th></tr>
+        <tr><td>AI 配音（剪映/豆包）</td><td>免费/低</td><td>快</td><td>中上</td><td>新手、测试题材</td></tr>
+        <tr><td>真人配音（自己录）</td><td>免费</td><td>中</td><td>看演技</td><td>有表达欲的人</td></tr>
+        <tr><td>专业配音（找人）</td><td>高</td><td>慢</td><td>最好</td><td>有预算的团队</td></tr>
+      </table>
+      <div class="callout"><b>新手建议：</b>先用 AI 配音跑通全流程，数据跑出来再考虑找真人。AI 配音的音色要全剧统一，不要一集换一个声音。</div>
+      <h3>配音稿 3 个格式要点</h3>
+      <ol>
+        <li><b>标注情绪：</b>（愤怒）你也配吃这顿饭？（颤抖）这……这脚印哪来的？</li>
+        <li><b>标注停顿：</b>用「……」表示停顿，用「！」表示爆发。</li>
+        <li><b>分段录制：</b>按分镜分段录，方便后期对齐画面。</li>
+      </ol>
+      <h3>3 个配音案例</h3>
+      <div class="case-grid">
+        <div class="case-card">
+          <h4><span class="tag tag-pink">古风甜宠</span>配音方案</h4>
+          <ul>
+            <li><b>王妃：</b>年轻女声，温柔偏冷静，语速 0.95</li>
+            <li><b>王爷：</b>低沉男声，冷漠偏磁性，语速 0.9</li>
+            <li>王妃（震惊）：「我……穿越了？！」</li>
+            <li>王爷（冷漠）：「退下。」</li>
+            <li>王妃（急切）：「别动！再乱动你会失血过多！」</li>
+          </ul>
+          <p style="color:var(--muted)">音效：心跳声、刀剑声、古风弦乐 BGM（15%）</p>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-blue">都市逆袭</span>配音方案</h4>
+          <ul>
+            <li><b>男主：</b>同一音色，前期压抑、后期霸气，靠语气区分</li>
+            <li><b>岳母：</b>中年女声，尖酸刻薄，语速 1.1</li>
+            <li>岳母（尖酸）：「你也配吃这顿饭？滚出去！」</li>
+            <li>男主（隐忍）：「好。」→（冷静）：「我这就回去。」</li>
+          </ul>
+          <p style="color:var(--muted)">音效：摔纸声、电话铃声、哄笑，BGM 从压抑转霸气</p>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-dark">悬疑恐怖</span>配音方案</h4>
+          <ul>
+            <li><b>主播：</b>年轻女声，前期阳光、后期颤抖崩溃</li>
+            <li>主播（笑着）：「哈哈，弹幕又在吓我。」</li>
+            <li>主播（颤抖）：「这……这脚印哪来的？」</li>
+            <li>主播（尖叫）：「谁？！出来！」</li>
+          </ul>
+          <p style="color:var(--muted)">音效：风声、心跳、脚步、电子音、断电声（占 50%）</p>
+        </div>
+      </div>
+      <div class="tip"><b>免费音效库：</b>剪映自带音效库（最方便）、爱给网、耳聆网。BGM 只用剪映曲库或可商用曲目，不要直接用流行歌曲。</div>
+    </section>
+
+    <!-- CH6 -->
+    <section class="chapter" id="ch6">
+      <h2><span class="num">第 6 章</span>动态制作（让画面动起来）</h2>
+      <div class="img-row">
+        <figure><img src="assets/motion.jpg" alt="动态制作原理"><figcaption>图 6-1：动态制作原理——人物拆图层，用关键帧控制眨眼、口型、镜头运动</figcaption></figure>
+      </div>
+      <h3>5 种手法（由易到难）</h3>
+      <table>
+        <tr><th>手法</th><th>说明</th><th>工具</th><th>难度</th></tr>
+        <tr><td>1. 推拉镜头</td><td>图片缓慢放大/缩小，模拟镜头运动</td><td>剪映「动画→推镜」</td><td>★☆☆☆☆</td></tr>
+        <tr><td>2. 眨眼/口型</td><td>眼睛、嘴巴独立图层，循环眨眼，台词时切换口型</td><td>PS 抠图 + 剪映</td><td>★★☆☆☆</td></tr>
+        <tr><td>3. 粒子特效</td><td>花瓣、雨丝、雪花、光尘</td><td>剪映特效 / AE 粒子</td><td>★★☆☆☆</td></tr>
+        <tr><td>4. 骨骼动画</td><td>转头、走路、挥手</td><td>Live2D / Spine</td><td>★★★★☆</td></tr>
+        <tr><td>5. AI 动效</td><td>静态图喂给 AI 视频工具一键生成动态</td><td>即梦视频等</td><td>★★☆☆☆</td></tr>
+      </table>
+      <div class="callout"><b>新手路线：</b>先用手法 1+2+3 做出第一条，再学 4 或 5。</div>
+      <h3>3 个动态案例</h3>
+      <div class="case-grid">
+        <div class="case-card">
+          <h4><span class="tag tag-pink">古风甜宠</span>花瓣 + 推镜</h4>
+          <ul>
+            <li><b>图层：</b>背景（桃花树）+ 人物（王妃）+ 前景（花瓣粒子）</li>
+            <li><b>动态：</b>全景推近到近景（5s）→ 眨眼循环 → 花瓣飘落全程 → 台词口型切换</li>
+            <li><b>工具：</b>剪映关键帧 + 贴纸 + PS 抠图</li>
+          </ul>
+          <p style="color:var(--green)">效果：3 秒内观众就感受到「这不是静态图」</p>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-blue">都市逆袭</span>跟拍 + 眼神</h4>
+          <ul>
+            <li><b>图层：</b>背景（寿宴客厅）+ 人物（男主）+ 特效（手机震动）</li>
+            <li><b>动态：</b>转身跟拍（关键帧平移）→ 眼神从隐忍变冷（换表情图）→ 手机抖动</li>
+            <li><b>工具：</b>剪映关键帧 + 表情包切换</li>
+          </ul>
+          <p style="color:var(--green)">效果：跟拍有代入感，眼神变化是逆袭高光</p>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-dark">悬疑恐怖</span>晃动 + 闪烁</h4>
+          <ul>
+            <li><b>图层：</b>背景（废弃医院）+ 人物（主播）+ 特效（灯光闪烁）</li>
+            <li><b>动态：</b>手持晃动 → 灯光随机闪烁 → 脚印出现时快速摇镜</li>
+            <li><b>工具：</b>剪映抖动 + 透明度关键帧</li>
+          </ul>
+          <p style="color:var(--green)">效果：晃动+闪烁营造不安感，观众屏住呼吸</p>
+        </div>
+      </div>
+      <h3>动态制作检查清单</h3>
+      <ul class="checklist">
+        <li>每张图都有推/拉/摇/跟，没有完全静止超过 3 秒的画面</li>
+        <li>人物有眨眼，台词有口型</li>
+        <li>背景有粒子或光影变化</li>
+        <li>镜头运动方向和剧情一致（推近=情绪聚焦，拉远=交代环境）</li>
+      </ul>
+    </section>
+
+    <!-- CH7 -->
+    <section class="chapter" id="ch7">
+      <h2><span class="num">第 7 章</span>剪辑与包装</h2>
+      <div class="img-row">
+        <figure><img src="assets/editing.jpg" alt="剪辑时间线"><figcaption>图 7-1：剪辑时间线——竖屏轨道上摆好图、配音、BGM、字幕四层</figcaption></figure>
+      </div>
+      <h3>3 个核心：节奏、字幕、BGM</h3>
+      <ul>
+        <li><b>节奏：</b>每 3 秒必须有信息点（新台词/新动作/新镜头）。慢镜头只用在情绪高光。</li>
+        <li><b>字幕：</b>全剧统一字体（思源黑体/站酷快乐体）、字号、颜色、描边，关键词变色。</li>
+        <li><b>BGM：</b>一集 1-2 首，冲突时压低，高光时抬起。</li>
+      </ul>
+      <h3>3 个剪辑案例</h3>
+      <div class="case-grid">
+        <div class="case-card">
+          <h4><span class="tag tag-pink">古风甜宠</span>情绪拉满版</h4>
+          <ul>
+            <li><b>节奏：</b>0-3s 快切 → 3-30s 慢铺垫 → 30-90s 快切 → 90-120s 慢推</li>
+            <li><b>字幕：</b>白字黑描边，关键词「穿越」「医术」粉色</li>
+            <li><b>BGM：</b>钢琴 → 紧张鼓点 → 古风弦乐</li>
+            <li><b>转场：</b>回忆叠化，现实硬切</li>
+          </ul>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-blue">都市逆袭</span>爽感版</h4>
+          <ul>
+            <li><b>节奏：</b>0-3s 硬切羞辱 → 3-50s 慢铺垫 → 50-80s 快切 → 80-120s 慢推反转</li>
+            <li><b>字幕：</b>白字黑描边，关键词「少爷」「集团」金色</li>
+            <li><b>BGM：</b>压抑低音 → 骤停 → 霸气鼓点</li>
+            <li><b>音效：</b>摔纸声+哄笑 → BGM 骤停+低音轰鸣</li>
+          </ul>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-dark">悬疑恐怖</span>吓人版</h4>
+          <ul>
+            <li><b>节奏：</b>全程慢节奏，靠音效和晃动撑恐怖感，不要快切</li>
+            <li><b>字幕：</b>白字黑描边，弹幕用绿/红区分，制造直播间感</li>
+            <li><b>BGM：</b>环境风声为主，BGM 只在高潮出现</li>
+            <li><b>转场：</b>只用硬切和黑屏</li>
+          </ul>
+        </div>
+      </div>
+      <h3>导出规格（直接抄）</h3>
+      <table>
+        <tr><th>项目</th><th>规格</th></tr>
+        <tr><td>分辨率</td><td>1080×1920（竖屏 9:16）</td></tr>
+        <tr><td>帧率</td><td>25fps 或 30fps</td></tr>
+        <tr><td>码率</td><td>8-12Mbps</td></tr>
+        <tr><td>格式</td><td>MP4（H.264）</td></tr>
+        <tr><td>时长</td><td>60-180 秒</td></tr>
+        <tr><td>文件大小</td><td>50MB 以内</td></tr>
+      </table>
+    </section>
+
+    <!-- CH8 -->
+    <section class="chapter" id="ch8">
+      <h2><span class="num">第 8 章</span>发布与运营</h2>
+      <div class="img-row">
+        <figure><img src="assets/publish.jpg" alt="发布效果"><figcaption>图 8-1：发布效果——竖屏成片 + 大字封面 + 互动引导，决定有没有人点进来</figcaption></figure>
+      </div>
+      <h3>平台选择</h3>
+      <table>
+        <tr><th>平台</th><th>适合题材</th><th>特点</th></tr>
+        <tr><td>抖音</td><td>全部题材</td><td>流量最大，适合冷启动</td></tr>
+        <tr><td>快手</td><td>古风、逆袭</td><td>用户粘性高，适合连载</td></tr>
+        <tr><td>B站</td><td>悬疑、剧情向</td><td>用户质量高，适合长线</td></tr>
+        <tr><td>小程序</td><td>霸总、甜宠</td><td>变现快，适合付费连载</td></tr>
+        <tr><td>小红书</td><td>校园、日常</td><td>适合女性向题材</td></tr>
+      </table>
+      <div class="tip"><b>新手建议：</b>先在抖音+快手双发，测出哪个题材数据好，再深耕。</div>
+      <h3>标题、封面、简介</h3>
+      <ul>
+        <li><b>标题公式：</b>[冲突/悬念] + [人物] + [反转]，15 字内</li>
+        <li><b>封面：</b>用最有冲突的一帧，加 3-5 个大字，字号大、对比强</li>
+        <li><b>简介：</b>一句话梗概 + 「连载中，点关注不迷路」+ 话题标签</li>
+      </ul>
+      <h3>3 个发布案例</h3>
+      <div class="case-grid">
+        <div class="case-card">
+          <h4><span class="tag tag-pink">古风甜宠</span>《医妃倾城》</h4>
+          <ul>
+            <li><b>标题：</b>穿越王妃救王爷，冷酷王爷竟说认识她？！</li>
+            <li><b>封面：</b>按压伤口+对视，加字「他认识我？」</li>
+            <li><b>时间：</b>19:00-21:00（女性用户活跃时段）</li>
+            <li><b>运营：</b>评论区置顶「王爷到底认不认识她？」</li>
+          </ul>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-blue">都市逆袭</span>《赘婿归来》</h4>
+          <ul>
+            <li><b>标题：</b>被赶出家门那天，他接到了一个电话</li>
+            <li><b>封面：</b>被摔红包+转身冷眼，加字「少爷？」</li>
+            <li><b>时间：</b>12:00-13:00、19:00-21:00 双高峰</li>
+            <li><b>运营：</b>评论区置顶「他到底是什么身份？」</li>
+          </ul>
+        </div>
+        <div class="case-card">
+          <h4><span class="tag tag-dark">悬疑恐怖</span>《深夜直播》</h4>
+          <ul>
+            <li><b>标题：</b>主播别回头！弹幕说她身后站着人</li>
+            <li><b>封面：</b>惊恐回头+墙面脚印，加字「别回头」</li>
+            <li><b>时间：</b>22:00-24:00（夜晚看效果最好）</li>
+            <li><b>运营：</b>评论区置顶「你们看到脚印了吗？」</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CH9 -->
+    <section class="chapter" id="ch9">
+      <h2><span class="num">第 9 章</span>3 个完整实战案例（从 0 到成片）</h2>
+      <div class="img-row">
+        <figure><img src="assets/hero-manhua.jpg" alt="医妃倾城封面" style="aspect-ratio:9/16"><figcaption>图 9-1：《医妃倾城》成片封面效果（古风甜宠）</figcaption></figure>
+        <figure><img src="assets/urban-revenge.jpg" alt="赘婿归来封面" style="aspect-ratio:9/16"><figcaption>图 9-2：《赘婿归来》成片封面效果（都市逆袭）</figcaption></figure>
+        <figure><img src="assets/horror-live.jpg" alt="深夜直播封面" style="aspect-ratio:9/16"><figcaption>图 9-3：《深夜直播》成片封面效果（悬疑恐怖）</figcaption></figure>
+      </div>
+      <div class="case-grid">
+        <div class="case-card">
+          <h4>案例一：《医妃倾城》古风甜宠</h4>
+          <p><span class="tag tag-pink">难度 ★★☆☆☆</span> <span class="tag tag-blue">约 2 小时</span> <span class="tag tag-dark">0 元</span></p>
+          <ol style="margin-top:8px">
+            <li><b>选题（5min）：</b>古风甜宠，梗概「穿越医女 × 冷酷王爷」</li>
+            <li><b>剧本（15min）：</b>120 秒台词稿，检查钩子/冲突/悬念</li>
+            <li><b>分镜（10min）：</b>8 镜分镜表，标注景别和时长</li>
+            <li><b>角色场景（15min）：</b>豆包生图生成设定图+场景图，统一调色</li>
+            <li><b>配音（10min）：</b>豆包写配音稿 → 剪映 AI 配音，按分镜分段生成</li>
+            <li><b>动态（20min）：</b>关键帧推镜+花瓣粒子+眨眼口型</li>
+            <li><b>剪辑（15min）：</b>加字幕/BGM/音效，导出 1080×1920</li>
+            <li><b>发布（5min）：</b>19:00 发布，评论区置顶引导问题</li>
+          </ol>
+          <p style="color:var(--green);margin-top:8px">产出：1 条 120 秒漫剧 · 适合零基础第一次做</p>
+        </div>
+        <div class="case-card">
+          <h4>案例二：《赘婿归来》都市逆袭</h4>
+          <p><span class="tag tag-pink">难度 ★★★☆☆</span> <span class="tag tag-blue">约 2.5 小时</span> <span class="tag tag-dark">0-50 元</span></p>
+          <ol style="margin-top:8px">
+            <li><b>选题（5min）：</b>都市逆袭，梗概「赘婿 × 隐藏身份」</li>
+            <li><b>剧本（15min）：</b>120 秒台词稿，打磨羞辱戏和反转</li>
+            <li><b>分镜（10min）：</b>7 镜分镜表，注意羞辱戏镜头顺序</li>
+            <li><b>角色场景（20min）：</b>豆包生图生成男主两套服装+寿宴客厅，统一冷色调</li>
+            <li><b>配音（10min）：</b>豆包写配音稿 → 同一音色靠语气区分前后</li>
+            <li><b>动态（25min）：</b>跟拍转身+眼神切换+手机震动</li>
+            <li><b>剪辑（20min）：</b>关键词金色字幕，BGM 从压抑转霸气</li>
+            <li><b>发布（5min）：</b>12:00 和 19:00 双发测试</li>
+          </ol>
+          <p style="color:var(--green);margin-top:8px">产出：1 条 120 秒漫剧 · 适合男性向、爽文题材</p>
+        </div>
+        <div class="case-card">
+          <h4>案例三：《深夜直播》悬疑恐怖</h4>
+          <p><span class="tag tag-pink">难度 ★★★★☆</span> <span class="tag tag-blue">约 3 小时</span> <span class="tag tag-dark">0-50 元</span></p>
+          <ol style="margin-top:8px">
+            <li><b>选题（5min）：</b>悬疑恐怖，梗概「探灵直播 × 弹幕警告」</li>
+            <li><b>剧本（20min）：</b>120 秒台词稿，设计信息差和层层加码</li>
+            <li><b>分镜（15min）：</b>7 镜分镜表，注意恐怖戏镜头顺序</li>
+            <li><b>角色场景（20min）：</b>豆包生图生成主播+废弃医院，统一暗黑冷色调</li>
+            <li><b>配音（15min）：</b>豆包写配音稿 → 从阳光到崩溃的情绪递进，音效占 50%</li>
+            <li><b>动态（30min）：</b>手持晃动+灯光闪烁+摇镜扫脚印</li>
+            <li><b>剪辑（25min）：</b>慢节奏，弹幕字幕区分，黑屏转场</li>
+            <li><b>发布（5min）：</b>22:00 夜晚发布</li>
+          </ol>
+          <p style="color:var(--green);margin-top:8px">产出：1 条 120 秒漫剧 · 适合喜欢挑战的人</p>
+        </div>
+      </div>
+      <table>
+        <tr><th>对比项</th><th>医妃倾城（甜宠）</th><th>赘婿归来（逆袭）</th><th>深夜直播（悬疑）</th></tr>
+        <tr><td>难度</td><td>★★☆☆☆</td><td>★★★☆☆</td><td>★★★★☆</td></tr>
+        <tr><td>核心难点</td><td>情绪细腻</td><td>爽感节奏</td><td>氛围音效</td></tr>
+        <tr><td>适合人群</td><td>女性向新手</td><td>男性向新手</td><td>喜欢挑战的人</td></tr>
+        <tr><td>建议顺序</td><td>第 1 个做</td><td>第 2 个做</td><td>第 3 个做</td></tr>
+      </table>
+    </section>
+
+    <!-- CH10 -->
+    <section class="chapter" id="ch10">
+      <h2><span class="num">第 10 章</span>新手避坑清单 + 30 天学习计划</h2>
+      <h3>新手 10 大坑</h3>
+      <table>
+        <tr><th>#</th><th>坑</th><th>正确做法</th></tr>
+        <tr><td>1</td><td>先画图后写剧本</td><td>先写剧本分镜，再画图</td></tr>
+        <tr><td>2</td><td>第一条就想做爆款</td><td>第一条目标是「做完」，不是「爆」</td></tr>
+        <tr><td>3</td><td>每集换画风/换音色</td><td>全剧统一画风和音色</td></tr>
+        <tr><td>4</td><td>台词太长，观众划走</td><td>每句台词不超过 15 字</td></tr>
+        <tr><td>5</td><td>画面完全静止</td><td>每 3 秒必须有动态</td></tr>
+        <tr><td>6</td><td>BGM 太大声盖过台词</td><td>BGM 音量 10-20%，台词优先</td></tr>
+        <tr><td>7</td><td>字幕字体不统一</td><td>全剧用同一字体、字号、颜色</td></tr>
+        <tr><td>8</td><td>结尾没有钩子</td><td>每集结尾必须留悬念/反转/危机</td></tr>
+        <tr><td>9</td><td>用有版权的音乐图片</td><td>只用剪映曲库和可商用素材</td></tr>
+        <tr><td>10</td><td>做完不发布，囤着等完美</td><td>做完就发，用数据指导下一条</td></tr>
+      </table>
+      <h3>30 天学习计划</h3>
+      <div class="plan">
+        <div class="plan-card"><h4>🌱 入门期（第 1-7 天）</h4><p>学豆包提示词 + 剪映基础 + 看 10 条漫剧拆解 + 写 3 个剧本大纲<br><b>产出：3 个大纲</b></p></div>
+        <div class="plan-card"><h4>🔥 实战期（第 8-21 天）</h4><p>按本教程做 3 个完整案例（甜宠→逆袭→悬疑）<br><b>产出：3 条成片</b></p></div>
+        <div class="plan-card"><h4>🚀 进周期（第 22-30 天）</h4><p>学 Live2D 或 AE 动态 + 做 1 条进阶漫剧 + 复盘数据<br><b>产出：1 条进阶成片 + 复盘报告</b></p></div>
+      </div>
+      <div class="callout"><b>最后叮嘱：</b>漫剧制作没有一蹴而就的捷径，但有一条最短的路：<b>剧本 → 分镜 → 角色 → 配音 → 动态 → 剪辑 → 发布</b>，按这个顺序，一条一条做下去。第一条会很丑，第二条会好一点，第十条你就知道自己在做什么了。<b>先完成，再完美。</b></div>
+      <h3>附录：可直接复制的模板</h3>
+      <p><b>分镜表模板：</b></p>
+      <div class="prompt-box">镜号 | 景别 | 画面内容 | 镜头运动 | 台词/音效 | 时长
+01   | 特写 | ...      | 静止     | ...       | 3s
+02   | 中景 | ...      | 推近     | ...       | 4s<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <p><b>AI 生图提示词模板（发给豆包生图即可用）：</b></p>
+      <div class="prompt-box">[角色]，[外貌]，[服装]，[画风]，[配色]，[背景]，[构图]
+例：古风少女，黑长直，杏眼，月白交领襦裙，国风插画，柔和配色，白色背景，三视图<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <h3>豆包全流程提示词（D1-D7 复制即用）</h3>
+      <p><b>D1 选题发散：</b></p>
+      <div class="prompt-box">你是短剧策划。我打算做竖屏漫剧，请给我 5 个【古风甜宠】选题，每个包含：一句话梗概、目标人群、3 秒钩子台词。要求身份反差+悬念+情绪。<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <p><b>D2 单集剧本：</b></p>
+      <div class="prompt-box">你是一名竖屏漫剧编剧。请为我写第 1 集剧本，要求：
+1. 题材：【填题材】；一句话梗概：【填梗概】；
+2. 时长 120 秒，按「3秒钩子+30秒铺垫+60秒冲突+30秒反转/悬念」结构；
+3. 先给 200 字大纲，再给台词表（时间|画面/动作|台词|音效/BGM 四列）；
+4. 每句台词不超过 15 字，旁白不超过 3 句，台词前标注情绪；
+5. 结尾必须留钩子（悬念/反转/危机三选一）。<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <p><b>D3 分镜表：</b></p>
+      <div class="prompt-box">你是漫剧分镜师。请把我下面的剧本拆成分镜表，要求：
+1. 严格输出 6 列表格：镜号|景别|画面内容|镜头运动|台词/音效|时长；
+2. 每镜 2-6 秒，一集 6-10 镜，连续 3 镜不重复景别；
+3. 对话用中景/近景，情绪用特写，环境用远景；
+4. 第 1 镜必须是钩子，最后 1 镜必须留钩子。
+剧本：【粘贴台词稿】<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <p><b>D4 角色设定 + 生图提示词：</b></p>
+      <div class="prompt-box">你是漫剧角色设计师。请为角色【姓名+身份一句话】输出：
+1. 设定卡：外貌（含识别点）、服装、3 个主色（含色号）、表情包 4 个；
+2. 一段可直接发给豆包生图的提示词（含三视图、白色背景、画风标签）。<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <p><b>D5 场景图提示词：</b></p>
+      <div class="prompt-box">给我生成场景图提示词：【场景名】，空镜无人物，竖屏 9:16，电影感光影，画风与角色设定统一（【贴画风标签】）。<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <p><b>D6 配音稿（带情绪标注）：</b></p>
+      <div class="prompt-box">请把下面台词表改写成配音稿：每句前用括号标注情绪和语速（如（愤怒·快）），用「……」标停顿，按镜号分段，方便逐段生成配音。
+台词表：【粘贴台词表】<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <p><b>D7 标题封面文案：</b></p>
+      <div class="prompt-box">你是短视频运营。为这条漫剧写 5 个标题（15 字内，含冲突/悬念）、3 版封面大字（3-6 个字）、1 条简介（含话题标签）。题材：【填】；一句话梗概：【填】。<button class="copy-btn" onclick="copyText(this)">复制</button></div>
+      <div class="tip"><b>用法：</b>D1→D2→D3→D4/D5→D6→D7 按顺序发给豆包，上一步的输出粘贴到下一步的【】里，全程不用换工具。改编小说先用 novel-templates/ 的拆解模板处理原文。</div>
+      <p><b>发布检查清单：</b></p>
+      <ul class="checklist">
+        <li>标题 15 字内，有冲突/悬念</li>
+        <li>封面有大字，对比强</li>
+        <li>简介一句话梗概 + 话题标签</li>
+        <li>发布时间在目标人群活跃时段</li>
+        <li>评论区已置顶引导问题</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<div class="footer">漫剧制作零基础大白话教程 · 工具以豆包为准 + 剪映 · 每步图文 + 可复制提示词 · 先完成，再完美 💪</div>
+
+<script>
+function copyText(btn){
+  var box=btn.parentElement;
+  var clone=box.cloneNode(true);
+  var btns=clone.querySelectorAll('button');
+  for(var i=0;i<btns.length;i++){btns[i].parentNode.removeChild(btns[i]);}
+  var text=clone.textContent.trim();
+  function done(){btn.textContent='已复制 ✓';setTimeout(function(){btn.textContent='复制'},1500)}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(function(){fallbackCopy(text,done)});
+  }else{fallbackCopy(text,done)}
+}
+function fallbackCopy(text,cb){
+  var ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');cb()}catch(e){}
+  document.body.removeChild(ta);
+}
+window.addEventListener('scroll',function(){
+  var h=document.documentElement;
+  var pct=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  document.getElementById('progressBar').style.width=pct+'%';
+  var links=document.querySelectorAll('.sidebar a');
+  var current='';
+  document.querySelectorAll('.chapter').forEach(function(sec){
+    if(sec.offsetTop<=h.scrollTop+120) current=sec.id;
+  });
+  links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+current)});
+});
+</script>
+</body>
+</html>
