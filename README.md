@@ -91,3 +91,29 @@ python3 -m http.server 8001
 | 悬疑定制版 | 线索链、反转结构 | 推理/恐怖/灵异/刑侦 | 案件链 + 反转点 |
 
 8 套模板均包含 8 个模块：基础信息、一句话概括、主线与支线、人物动机与弧线、世界观设定、剧情结构（开端/发展/高潮/结局）、爽点与伏笔、写作技巧总结。
+
+---
+
+# 🎭 角色设定表 · 陆沉
+
+> AI 仿真人短剧用的角色设定表：白底三视图 + 身上全套服装配饰 + 12 个 Q 版表情，一张图定住一个角色。
+
+- 成品图：[`character-sheets/lu-chen-character-sheet.png`](character-sheets/lu-chen-character-sheet.png)（都市男主「陆沉」，对应教程 4.3 的后期造型）
+- 定妆照：`character-sheets/lu-chen/face.jpg`，之后生图、生视频时当角色参考图上传，用来锁定同一张脸
+- 提示词：[`character-sheets/lu-chen/prompts.md`](character-sheets/lu-chen/prompts.md)
+- 改字后怎么重新导出、怎么给别的角色做一张、已知的不足：见 [`character-sheets/README.md`](character-sheets/README.md)
+
+---
+
+# 🖥️ AI 短剧工作台（演示页面）
+
+> 一个静态首页模板：把教程附录 D1-D7 的提示词做成 7 种创作模式，配 8 步流程和作品展示。**不调用任何 AI 接口**，页面里的作品和数据都是虚构的示例。页面是从零写的，不是 LibTV 的源码。
+
+本地预览（页面里有指向教程和模板的链接，所以从仓库根目录起服务）：
+
+```bash
+python3 -m http.server 8080
+# 浏览器打开 http://localhost:8080/studio/
+```
+
+来源说明、目录、常见修改、验证情况：见 [`studio/README.md`](studio/README.md)。
