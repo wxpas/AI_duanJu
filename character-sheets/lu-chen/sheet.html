@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1664">
+<title>角色设定表 · 陆沉（现代都市 · 男主角）</title>
+<!--
+  画布固定 1664 × 1024 px，导出成图片的方法见 ../README.md。
+  文字、色号直接改这个文件；图片都在 parts/ 里，换角色时替换同名文件即可。
+-->
+<style>
+  :root {
+    --ink:  #1b1b1d;   /* 标题、标签 */
+    --text: #47474c;   /* 正文 */
+    --mute: #74747a;   /* 说明小字 */
+    --rule: #c4c4c9;   /* 分隔线 */
+    --font: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  ul { list-style: none; }
+  img { display: block; }
+
+  .sheet { position: relative; width: 1664px; height: 1024px; background: #fff; overflow: hidden; }
+  .sheet::after { content: ""; position: absolute; inset: 6px; border: 1.5px solid var(--ink); pointer-events: none; }
+  .sheet > * { position: absolute; }
+
+  h2 { font-size: 17px; line-height: 20px; font-weight: 700; letter-spacing: .5px; padding-bottom: 7px; border-bottom: 1px solid var(--rule); }
+
+  /* ── 左栏：标题 / 基本信息 / 简介 / 配色 ── */
+  .title { left: 44px; top: 32px; width: 210px; }
+  .title h1 { font-size: 36px; line-height: 40px; font-weight: 700; letter-spacing: 1px; }
+  .title p  { margin-top: 8px; font-size: 19px; line-height: 24px; font-weight: 500; letter-spacing: 1px; }
+  .title svg { margin-top: 12px; display: block; }
+
+  .info { left: 44px; top: 142px; width: 206px; display: grid; grid-template-columns: 66px 1fr; font-size: 15px; line-height: 30px; }
+  .info dt { font-weight: 700; }
+  .info dd { color: var(--text); white-space: nowrap; }
+
+  .intro { left: 44px; top: 352px; width: 204px; }
+  .intro h3 { font-size: 15px; line-height: 30px; font-weight: 700; }
+  .intro p  { font-size: 14px; line-height: 26px; color: var(--text); white-space: nowrap; }
+
+  .palette { left: 44px; top: 520px; width: 204px; }
+  .palette ul { margin-top: 11px; }
+  .palette li { display: grid; grid-template-columns: 66px 40px 1fr; column-gap: 0; align-items: center; height: 26px; font-size: 13px; }
+  .palette i  { width: 40px; height: 17px; border: 1px solid rgba(0, 0, 0, .14); }
+  .palette code { font-family: var(--font); color: var(--text); padding-left: 28px; letter-spacing: .3px; }
+
+  /* ── 三视图 ── */
+  .ruler { left: 270px; top: 0; }
+  .ruler line { stroke: #cdcdd1; stroke-width: 1; stroke-dasharray: 5 4; }
+  .ruler text { font-size: 10px; fill: #9a9aa0; font-family: var(--font); }
+  .pill { top: 38px; width: 84px; height: 30px; border: 1px solid #9c9ca1; border-radius: 6px; font-size: 17px; line-height: 28px; font-weight: 500; text-align: center; letter-spacing: 2px; text-indent: 2px; background: #fff; }
+  .view { top: 85px; height: 771.5px; }
+
+  /* ── 细节展示 ── */
+  .details { left: 986px; top: 42px; width: 190px; }
+  .details ul { margin-top: 26px; display: grid; row-gap: 46px; }
+  .details li { display: flex; align-items: center; gap: 12px; height: 104px; }
+  .details img { width: 104px; height: 104px; flex: none; border-radius: 50%; border: 1px solid #b4b4b9; object-fit: cover; }
+  .details b { display: block; font-size: 13px; line-height: 20px; font-weight: 700; }
+  .details span { display: block; font-size: 11px; line-height: 17px; color: var(--mute); white-space: nowrap; }
+
+  /* ── Q版表情包 ── */
+  .emoji { left: 1200px; top: 42px; width: 424px; }
+  .emoji ul { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 22px; }
+  .emoji li { display: grid; justify-items: center; }
+  .emoji img { width: 150px; height: 150px; margin: 0 -6px; mix-blend-mode: multiply; }
+  .emoji span { font-size: 15px; line-height: 22px; letter-spacing: 1px; }
+
+  /* ── 底部：设计说明 / 面料 / 全套服装配饰 ── */
+  .notes { left: 44px; top: 860px; width: 204px; }
+  .notes p { margin-top: 9px; font-size: 12px; line-height: 21px; color: var(--text); white-space: nowrap; }
+
+  .fabrics { left: 270px; top: 860px; width: 270px; }
+  .fabrics ul { margin-top: 10px; display: grid; grid-template-columns: repeat(3, 82px); column-gap: 12px; }
+  .fabrics img { width: 82px; height: 54px; object-fit: cover; border: 1px solid rgba(0, 0, 0, .12); }
+  .fabrics span { display: block; margin-top: 5px; font-size: 11px; line-height: 16px; text-align: center; color: var(--text); white-space: nowrap; }
+  .fabrics span em { display: block; font-style: normal; color: var(--mute); }
+
+  .items { left: 566px; top: 860px; width: 1058px; }
+  .items ul { margin-top: 9px; display: grid; grid-template-columns: repeat(9, 1fr); }
+  .items li { display: grid; justify-items: center; }
+  .items img { width: 110px; height: 80px; object-fit: contain; }
+  .items span { margin-top: 3px; font-size: 11.5px; line-height: 16px; color: var(--text); }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- 标题 -->
+  <header class="title">
+    <h1>角色设定表</h1>
+    <p>现代都市 · 男主角</p>
+    <svg width="200" height="9" viewBox="0 0 200 9" aria-hidden="true" fill="none" stroke="#8d8d93" stroke-width="1">
+      <path d="M9 4.5h182" stroke-dasharray="6 5"/>
+      <path d="M0 4.5h9M4.5 0v9M191 4.5h9M195.5 0v9"/>
+    </svg>
+  </header>
+
+  <!-- 基本信息 -->
+  <dl class="info">
+    <dt>姓名：</dt><dd>陆沉</dd>
+    <dt>年龄：</dt><dd>28</dd>
+    <dt>身高：</dt><dd>185cm</dd>
+    <dt>体型：</dt><dd>宽肩长腿 修长挺拔</dd>
+    <dt>职业：</dt><dd>集团继承人</dd>
+    <dt>性格：</dt><dd>隐忍克制 杀伐果断</dd>
+    <dt>识别点：</dt><dd>金丝眼镜 侧分短发</dd>
+  </dl>
+
+  <section class="intro">
+    <h3>简介：</h3>
+    <p>隐藏身份的集团继承人。<br>前期隐忍蛰伏，后期锋芒毕露。<br>本表为后期「霸总」造型：<br>黑西装、白衬衫、金丝眼镜。</p>
+  </section>
+
+  <!-- 配色方案：色号取自本页图片 -->
+  <section class="palette">
+    <h2>配色方案</h2>
+    <ul>
+      <li><span>发色</span><i style="background:#151517"></i><code>#151517</code></li>
+      <li><span>瞳色</span><i style="background:#3A2A26"></i><code>#3A2A26</code></li>
+      <li><span>肤色</span><i style="background:#DDB5A2"></i><code>#DDB5A2</code></li>
+      <li><span>衬衫</span><i style="background:#EEEDF0"></i><code>#EEEDF0</code></li>
+      <li><span>西装</span><i style="background:#1F2025"></i><code>#1F2025</code></li>
+      <li><span>领带</span><i style="background:#27262C"></i><code>#27262C</code></li>
+      <li><span>皮鞋/皮带</span><i style="background:#18181C"></i><code>#18181C</code></li>
+      <li><span>眼镜</span><i style="background:#CFAC7A"></i><code>#CFAC7A</code></li>
+      <li><span>腕表</span><i style="background:#B0B1B3"></i><code>#B0B1B3</code></li>
+    </ul>
+  </section>
+
+  <!-- 三视图：身高标尺画在人物后面（185cm = 头顶，0 = 鞋底） -->
+  <svg class="ruler" width="690" height="860" viewBox="0 0 690 860" aria-hidden="true">
+    <line x1="0" y1="92"  x2="690" y2="92"/>  <text x="0" y="87">185cm</text>
+    <line x1="0" y1="233" x2="690" y2="233"/> <text x="0" y="228">150</text>
+    <line x1="0" y1="435" x2="690" y2="435"/> <text x="0" y="430">100</text>
+    <line x1="0" y1="637" x2="690" y2="637"/> <text x="0" y="632">50</text>
+    <line x1="0" y1="838" x2="690" y2="838"/> <text x="0" y="833">0</text>
+  </svg>
+  <span class="pill" style="left:364.5px">正面</span>
+  <span class="pill" style="left:579.5px">侧面</span>
+  <span class="pill" style="left:794px">背面</span>
+  <img class="view" style="left:285px; width:243.5px" src="parts/view-front.png" alt="陆沉 正面全身">
+  <img class="view" style="left:544px; width:155px"   src="parts/view-side.png"  alt="陆沉 侧面全身">
+  <img class="view" style="left:715px; width:242px"   src="parts/view-back.png"  alt="陆沉 背面全身">
+
+  <!-- 细节展示 -->
+  <section class="details">
+    <h2>细节展示</h2>
+    <ul>
+      <li><img src="parts/detail-glasses.jpg" alt=""><div><b>眼镜</b><span>金丝细框</span><span>方形镜片</span></div></li>
+      <li><img src="parts/detail-tie.jpg" alt=""><div><b>领带</b><span>黑色缎面</span><span>窄版领带</span></div></li>
+      <li><img src="parts/detail-watch.jpg" alt=""><div><b>腕表</b><span>银色钢带</span><span>黑色表盘</span></div></li>
+      <li><img src="parts/detail-belt.jpg" alt=""><div><b>皮带</b><span>黑色牛皮</span><span>银色针扣</span></div></li>
+      <li><img src="parts/detail-shoes.jpg" alt=""><div><b>皮鞋</b><span>黑色三接头</span><span>牛津鞋</span></div></li>
+    </ul>
+  </section>
+
+  <!-- Q版表情包 -->
+  <section class="emoji">
+    <h2>Q版表情包</h2>
+    <ul>
+      <li><img src="parts/emoji-01-happy.png" alt=""><span>开心</span></li>
+      <li><img src="parts/emoji-02-laugh.png" alt=""><span>大笑</span></li>
+      <li><img src="parts/emoji-03-smirk.png" alt=""><span>冷笑</span></li>
+      <li><img src="parts/emoji-04-angry.png" alt=""><span>生气</span></li>
+      <li><img src="parts/emoji-05-sad.png" alt=""><span>难过</span></li>
+      <li><img src="parts/emoji-06-shocked.png" alt=""><span>震惊</span></li>
+      <li><img src="parts/emoji-07-scared.png" alt=""><span>害怕</span></li>
+      <li><img src="parts/emoji-08-shy.png" alt=""><span>害羞</span></li>
+      <li><img src="parts/emoji-09-thinking.png" alt=""><span>思考</span></li>
+      <li><img src="parts/emoji-10-enduring.png" alt=""><span>隐忍</span></li>
+      <li><img src="parts/emoji-11-domineering.png" alt=""><span>霸气</span></li>
+      <li><img src="parts/emoji-12-tired.png" alt=""><span>疲惫</span></li>
+    </ul>
+  </section>
+
+  <!-- 设计说明 -->
+  <section class="notes">
+    <h2>设计说明</h2>
+    <p>黑、白为主，金、银点缀。<br>合身剪裁突出宽肩长腿，<br>眼镜与腕表强化冷静克制的气质。<br>全剧保持同一套配色。</p>
+  </section>
+
+  <!-- 服装材质参考 -->
+  <section class="fabrics">
+    <h2>服装材质参考</h2>
+    <ul>
+      <li><img src="parts/fabric-suit.jpg" alt=""><span>西装面料<em>精纺羊毛 挺括</em></span></li>
+      <li><img src="parts/fabric-shirt.jpg" alt=""><span>衬衫面料<em>纯棉府绸 细腻</em></span></li>
+      <li><img src="parts/fabric-tie.jpg" alt=""><span>领带面料<em>真丝缎面 光泽</em></span></li>
+    </ul>
+  </section>
+
+  <!-- 服装配饰参考：角色身上的全部 9 件 -->
+  <section class="items">
+    <h2>服装配饰参考</h2>
+    <ul>
+      <li><img src="parts/item-jacket.png" alt=""><span>西装外套</span></li>
+      <li><img src="parts/item-shirt.png" alt=""><span>白衬衫</span></li>
+      <li><img src="parts/item-trousers.png" alt=""><span>西裤</span></li>
+      <li><img src="parts/item-tie.png" alt=""><span>领带</span></li>
+      <li><img src="parts/item-belt.png" alt=""><span>皮带</span></li>
+      <li><img src="parts/item-socks.png" alt=""><span>正装袜</span></li>
+      <li><img src="parts/item-shoes.png" alt=""><span>牛津鞋</span></li>
+      <li><img src="parts/item-glasses.png" alt=""><span>金丝眼镜</span></li>
+      <li><img src="parts/item-watch.png" alt=""><span>钢带腕表</span></li>
+    </ul>
+  </section>
+
+</main>
+</body>
+</html>

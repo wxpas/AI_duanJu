@@ -91,3 +91,14 @@ python3 -m http.server 8001
 | 悬疑定制版 | 线索链、反转结构 | 推理/恐怖/灵异/刑侦 | 案件链 + 反转点 |
 
 8 套模板均包含 8 个模块：基础信息、一句话概括、主线与支线、人物动机与弧线、世界观设定、剧情结构（开端/发展/高潮/结局）、爽点与伏笔、写作技巧总结。
+
+---
+
+# 🎭 角色设定表 · 陆沉
+
+> AI 仿真人短剧用的角色设定表：白底三视图 + 身上全套服装配饰 + 12 个 Q 版表情，一张图定住一个角色。
+
+- 成品图：[`character-sheets/lu-chen-character-sheet.png`](character-sheets/lu-chen-character-sheet.png)（都市男主「陆沉」，对应教程 4.3 的后期造型）
+- 定妆照：`character-sheets/lu-chen/face.jpg`，之后生图、生视频时当角色参考图上传，用来锁定同一张脸
+- 提示词：[`character-sheets/lu-chen/prompts.md`](character-sheets/lu-chen/prompts.md)
+- 改字后怎么重新导出、怎么给别的角色做一张、已知的不足：见 [`character-sheets/README.md`](character-sheets/README.md)
