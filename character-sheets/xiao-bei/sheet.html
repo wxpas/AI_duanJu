@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1664">
+<title>角色设定表 · 小北（悬疑恐怖 · 女主角）</title>
+<!--
+  画布固定 1664 × 1024 px，导出成图片的方法见 ../README.md。
+  文字、色号直接改这个文件；图片都在 parts/ 里，换角色时替换同名文件即可。
+-->
+<style>
+  :root {
+    --ink:  #1b1b1d;   /* 标题、标签 */
+    --text: #47474c;   /* 正文 */
+    --mute: #74747a;   /* 说明小字 */
+    --rule: #c4c4c9;   /* 分隔线 */
+    --font: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  ul { list-style: none; }
+  img { display: block; }
+
+  .sheet { position: relative; width: 1664px; height: 1024px; background: #fff; overflow: hidden; }
+  .sheet::after { content: ""; position: absolute; inset: 6px; border: 1.5px solid var(--ink); pointer-events: none; }
+  .sheet > * { position: absolute; }
+
+  h2 { font-size: 17px; line-height: 20px; font-weight: 700; letter-spacing: .5px; padding-bottom: 7px; border-bottom: 1px solid var(--rule); }
+
+  /* ── 左栏：标题 / 基本信息 / 简介 / 配色 ── */
+  .title { left: 44px; top: 32px; width: 210px; }
+  .title h1 { font-size: 36px; line-height: 40px; font-weight: 700; letter-spacing: 1px; }
+  .title p  { margin-top: 8px; font-size: 19px; line-height: 24px; font-weight: 500; letter-spacing: 1px; }
+  .title svg { margin-top: 12px; display: block; }
+
+  .info { left: 44px; top: 142px; width: 206px; display: grid; grid-template-columns: 66px 1fr; font-size: 15px; line-height: 30px; }
+  .info dt { font-weight: 700; }
+  .info dd { color: var(--text); white-space: nowrap; }
+
+  .intro { left: 44px; top: 352px; width: 204px; }
+  .intro h3 { font-size: 15px; line-height: 30px; font-weight: 700; }
+  .intro p  { font-size: 14px; line-height: 26px; color: var(--text); white-space: nowrap; }
+
+  .palette { left: 44px; top: 520px; width: 204px; }
+  .palette ul { margin-top: 11px; }
+  .palette li { display: grid; grid-template-columns: 66px 40px 1fr; column-gap: 0; align-items: center; height: 26px; font-size: 13px; }
+  .palette i  { width: 40px; height: 17px; border: 1px solid rgba(0, 0, 0, .14); }
+  .palette code { font-family: var(--font); color: var(--text); padding-left: 28px; letter-spacing: .3px; }
+
+  /* ── 三视图 ── */
+  .ruler { left: 262px; top: 0; }
+  .ruler line { stroke: #cdcdd1; stroke-width: 1; stroke-dasharray: 5 4; }
+  .ruler text { font-size: 10px; fill: #9a9aa0; font-family: var(--font); }
+  .pill { top: 38px; width: 84px; height: 30px; border: 1px solid #9c9ca1; border-radius: 6px; font-size: 17px; line-height: 28px; font-weight: 500; text-align: center; letter-spacing: 2px; text-indent: 2px; background: #fff; }
+  .view { top: 73.7px; height: 783px; }
+
+  /* ── 细节展示 ── */
+  .details { left: 986px; top: 42px; width: 190px; }
+  .details ul { margin-top: 26px; display: grid; row-gap: 46px; }
+  .details li { display: flex; align-items: center; gap: 12px; height: 104px; }
+  .details img { width: 104px; height: 104px; flex: none; border-radius: 50%; border: 1px solid #b4b4b9; object-fit: cover; }
+  .details b { display: block; font-size: 13px; line-height: 20px; font-weight: 700; }
+  .details span { display: block; font-size: 11px; line-height: 17px; color: var(--mute); white-space: nowrap; }
+
+  /* ── Q版表情包 ── */
+  .emoji { left: 1200px; top: 42px; width: 424px; }
+  .emoji ul { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 22px; }
+  .emoji li { display: grid; justify-items: center; }
+  .emoji img { width: 150px; height: 150px; margin: 0 -6px; mix-blend-mode: multiply; }
+  .emoji span { font-size: 15px; line-height: 22px; letter-spacing: 1px; }
+
+  /* ── 底部：设计说明 / 面料 / 全套服装配饰 ── */
+  .notes { left: 44px; top: 860px; width: 204px; }
+  .notes p { margin-top: 9px; font-size: 12px; line-height: 21px; color: var(--text); white-space: nowrap; }
+
+  .fabrics { left: 270px; top: 860px; width: 270px; }
+  .fabrics ul { margin-top: 10px; display: grid; grid-template-columns: repeat(3, 82px); column-gap: 12px; }
+  .fabrics img { width: 82px; height: 54px; object-fit: cover; border: 1px solid rgba(0, 0, 0, .12); }
+  .fabrics span { display: block; margin-top: 5px; font-size: 11px; line-height: 16px; text-align: center; color: var(--text); white-space: nowrap; }
+  .fabrics span em { display: block; font-style: normal; color: var(--mute); }
+
+  .items { left: 566px; top: 860px; width: 1058px; }
+  .items ul { margin-top: 9px; display: grid; grid-template-columns: repeat(9, 1fr); }
+  .items li { display: grid; justify-items: center; }
+  .items img { width: 110px; height: 80px; object-fit: contain; }
+  .items span { margin-top: 3px; font-size: 11.5px; line-height: 16px; color: var(--text); }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- 标题 -->
+  <header class="title">
+    <h1>角色设定表</h1>
+    <p>悬疑恐怖 · 女主角</p>
+    <svg width="200" height="9" viewBox="0 0 200 9" aria-hidden="true" fill="none" stroke="#8d8d93" stroke-width="1">
+      <path d="M9 4.5h182" stroke-dasharray="6 5"/>
+      <path d="M0 4.5h9M4.5 0v9M191 4.5h9M195.5 0v9"/>
+    </svg>
+  </header>
+
+  <!-- 基本信息 -->
+  <dl class="info">
+    <dt>姓名：</dt><dd>小北</dd>
+    <dt>年龄：</dt><dd>22</dd>
+    <dt>身高：</dt><dd>160cm</dd>
+    <dt>体型：</dt><dd>身形娇小 活泼好动</dd>
+    <dt>职业：</dt><dd>探灵主播</dd>
+    <dt>性格：</dt><dd>阳光爱笑 胆大好奇</dd>
+    <dt>识别点：</dt><dd>丸子头 酒窝 耳机</dd>
+  </dl>
+
+  <section class="intro">
+    <h3>简介：</h3>
+    <p>探灵主播，直播设备齐全。<br>笑起来有酒窝，<br>恐怖戏里笑容逐渐消失。<br>本表为直播标配造型。</p>
+  </section>
+
+  <!-- 配色方案：色号取自本页图片 -->
+  <section class="palette">
+    <h2>配色方案</h2>
+    <ul>
+      <li><span>发色</span><i style="background:#3A2B24"></i><code>#3A2B24</code></li>
+      <li><span>瞳色</span><i style="background:#43302A"></i><code>#43302A</code></li>
+      <li><span>肤色</span><i style="background:#EBC0AD"></i><code>#EBC0AD</code></li>
+      <li><span>唇色</span><i style="background:#D56962"></i><code>#D56962</code></li>
+      <li><span>卫衣</span><i style="background:#17151A"></i><code>#17151A</code></li>
+      <li><span>运动裤</span><i style="background:#403F43"></i><code>#403F43</code></li>
+      <li><span>T恤/袜子</span><i style="background:#F0F0F0"></i><code>#F0F0F0</code></li>
+      <li><span>发圈</span><i style="background:#5A232D"></i><code>#5A232D</code></li>
+      <li><span>铃铛</span><i style="background:#B2945F"></i><code>#B2945F</code></li>
+    </ul>
+  </section>
+
+  <!-- 三视图：身高标尺画在人物后面（160cm = 头顶，不算丸子头；0 = 鞋底） -->
+  <svg class="ruler" width="698" height="860" viewBox="0 0 698 860" aria-hidden="true">
+    <line x1="0" y1="118" x2="698" y2="118"/> <text x="0" y="113">160cm</text>
+    <line x1="0" y1="163" x2="698" y2="163"/> <text x="0" y="158">150</text>
+    <line x1="0" y1="388" x2="698" y2="388"/> <text x="0" y="383">100</text>
+    <line x1="0" y1="613" x2="698" y2="613"/> <text x="0" y="608">50</text>
+    <line x1="0" y1="838" x2="698" y2="838"/> <text x="0" y="833">0</text>
+  </svg>
+  <span class="pill" style="left:357.5px">正面</span>
+  <span class="pill" style="left:582px">侧面</span>
+  <span class="pill" style="left:805px">背面</span>
+  <img class="view" style="left:275.9px; width:246.5px" src="parts/view-front.png" alt="小北 正面全身">
+  <img class="view" style="left:536.4px; width:175px"   src="parts/view-side.png"  alt="小北 侧面全身">
+  <img class="view" style="left:724.4px; width:245.5px" src="parts/view-back.png"  alt="小北 背面全身">
+
+  <!-- 细节展示 -->
+  <section class="details">
+    <h2>细节展示</h2>
+    <ul>
+      <li><img src="parts/detail-dimple.jpg" alt=""><div><b>酒窝</b><span>笑起来才有</span><span>角色识别点</span></div></li>
+      <li><img src="parts/detail-bun.jpg" alt=""><div><b>丸子头</b><span>扎在头顶</span><span>酒红色发圈</span></div></li>
+      <li><img src="parts/detail-headphones.jpg" alt=""><div><b>耳机</b><span>黑色头戴式</span><span>挂在脖子上</span></div></li>
+      <li><img src="parts/detail-bag.jpg" alt=""><div><b>胸包</b><span>黑色尼龙</span><span>红绳挂铜铃</span></div></li>
+      <li><img src="parts/detail-shoes.jpg" alt=""><div><b>帆布鞋</b><span>黑色低帮</span><span>白色鞋头</span></div></li>
+    </ul>
+  </section>
+
+  <!-- Q版表情包 -->
+  <section class="emoji">
+    <h2>Q版表情包</h2>
+    <ul>
+      <li><img src="parts/emoji-01-smile.png" alt=""><span>阳光笑</span></li>
+      <li><img src="parts/emoji-02-laugh.png" alt=""><span>大笑</span></li>
+      <li><img src="parts/emoji-03-puzzled.png" alt=""><span>疑惑</span></li>
+      <li><img src="parts/emoji-04-angry.png" alt=""><span>生气</span></li>
+      <li><img src="parts/emoji-05-sad.png" alt=""><span>难过</span></li>
+      <li><img src="parts/emoji-06-shocked.png" alt=""><span>震惊</span></li>
+      <li><img src="parts/emoji-07-terrified.png" alt=""><span>惊恐</span></li>
+      <li><img src="parts/emoji-08-breakdown.png" alt=""><span>崩溃</span></li>
+      <li><img src="parts/emoji-09-frozen-smile.png" alt=""><span>僵笑</span></li>
+      <li><img src="parts/emoji-10-shh.png" alt=""><span>别出声</span></li>
+      <li><img src="parts/emoji-11-determined.png" alt=""><span>坚定</span></li>
+      <li><img src="parts/emoji-12-tired.png" alt=""><span>疲惫</span></li>
+    </ul>
+  </section>
+
+  <!-- 设计说明 -->
+  <section class="notes">
+    <h2>设计说明</h2>
+    <p>黑、灰为主，酒红与铜色点缀。<br>宽松卫衣配束脚运动裤，<br>耳机和胸包是主播的随身装备。<br>全剧保持同一套配色。</p>
+  </section>
+
+  <!-- 服装材质参考 -->
+  <section class="fabrics">
+    <h2>服装材质参考</h2>
+    <ul>
+      <li><img src="parts/fabric-hoodie.jpg" alt=""><span>卫衣面料<em>纯棉抓绒 厚实</em></span></li>
+      <li><img src="parts/fabric-joggers.jpg" alt=""><span>运动裤面料<em>花灰毛圈布 柔软</em></span></li>
+      <li><img src="parts/fabric-bag.jpg" alt=""><span>胸包面料<em>格纹尼龙 耐磨</em></span></li>
+    </ul>
+  </section>
+
+  <!-- 服装配饰参考：角色身上的全部 9 件 -->
+  <section class="items">
+    <h2>服装配饰参考</h2>
+    <ul>
+      <li><img src="parts/item-hoodie.png" alt=""><span>连帽卫衣</span></li>
+      <li><img src="parts/item-tee.png" alt=""><span>白色T恤</span></li>
+      <li><img src="parts/item-joggers.png" alt=""><span>束脚运动裤</span></li>
+      <li><img src="parts/item-socks.png" alt=""><span>白色中筒袜</span></li>
+      <li><img src="parts/item-sneakers.png" alt=""><span>帆布鞋</span></li>
+      <li><img src="parts/item-headphones.png" alt=""><span>头戴式耳机</span></li>
+      <li><img src="parts/item-bag.png" alt=""><span>斜挎胸包</span></li>
+      <li><img src="parts/item-bell.png" alt=""><span>铜铃挂件</span></li>
+      <li><img src="parts/item-scrunchie.png" alt=""><span>酒红发圈</span></li>
+    </ul>
+  </section>
+
+</main>
+</body>
+</html>

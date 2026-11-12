@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1664">
+<title>角色设定表 · 沈清辞（古风甜宠 · 女主角）</title>
+<!--
+  画布固定 1664 × 1024 px，导出成图片的方法见 ../README.md。
+  文字、色号直接改这个文件；图片都在 parts/ 里，换角色时替换同名文件即可。
+-->
+<style>
+  :root {
+    --ink:  #1b1b1d;   /* 标题、标签 */
+    --text: #47474c;   /* 正文 */
+    --mute: #74747a;   /* 说明小字 */
+    --rule: #c4c4c9;   /* 分隔线 */
+    --font: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  ul { list-style: none; }
+  img { display: block; }
+
+  .sheet { position: relative; width: 1664px; height: 1024px; background: #fff; overflow: hidden; }
+  .sheet::after { content: ""; position: absolute; inset: 6px; border: 1.5px solid var(--ink); pointer-events: none; }
+  .sheet > * { position: absolute; }
+
+  h2 { font-size: 17px; line-height: 20px; font-weight: 700; letter-spacing: .5px; padding-bottom: 7px; border-bottom: 1px solid var(--rule); }
+
+  /* ── 左栏：标题 / 基本信息 / 简介 / 配色 ── */
+  .title { left: 44px; top: 32px; width: 210px; }
+  .title h1 { font-size: 36px; line-height: 40px; font-weight: 700; letter-spacing: 1px; }
+  .title p  { margin-top: 8px; font-size: 19px; line-height: 24px; font-weight: 500; letter-spacing: 1px; }
+  .title svg { margin-top: 12px; display: block; }
+
+  .info { left: 44px; top: 142px; width: 206px; display: grid; grid-template-columns: 66px 1fr; font-size: 15px; line-height: 30px; }
+  .info dt { font-weight: 700; }
+  .info dd { color: var(--text); white-space: nowrap; }
+
+  .intro { left: 44px; top: 352px; width: 204px; }
+  .intro h3 { font-size: 15px; line-height: 30px; font-weight: 700; }
+  .intro p  { font-size: 14px; line-height: 26px; color: var(--text); white-space: nowrap; }
+
+  .palette { left: 44px; top: 520px; width: 204px; }
+  .palette ul { margin-top: 11px; }
+  .palette li { display: grid; grid-template-columns: 66px 40px 1fr; column-gap: 0; align-items: center; height: 26px; font-size: 13px; }
+  .palette i  { width: 40px; height: 17px; border: 1px solid rgba(0, 0, 0, .14); }
+  .palette code { font-family: var(--font); color: var(--text); padding-left: 28px; letter-spacing: .3px; }
+
+  /* ── 三视图 ── */
+  .ruler { left: 262px; top: 0; }
+  .ruler line { stroke: #cdcdd1; stroke-width: 1; stroke-dasharray: 5 4; }
+  .ruler text { font-size: 10px; fill: #9a9aa0; font-family: var(--font); }
+  .pill { top: 38px; width: 84px; height: 30px; border: 1px solid #9c9ca1; border-radius: 6px; font-size: 17px; line-height: 28px; font-weight: 500; text-align: center; letter-spacing: 2px; text-indent: 2px; background: #fff; }
+  .view { top: 107.8px; height: 742.5px; }
+
+  /* ── 细节展示 ── */
+  .details { left: 986px; top: 42px; width: 190px; }
+  .details ul { margin-top: 26px; display: grid; row-gap: 46px; }
+  .details li { display: flex; align-items: center; gap: 12px; height: 104px; }
+  .details img { width: 104px; height: 104px; flex: none; border-radius: 50%; border: 1px solid #b4b4b9; object-fit: cover; }
+  .details b { display: block; font-size: 13px; line-height: 20px; font-weight: 700; }
+  .details span { display: block; font-size: 11px; line-height: 17px; color: var(--mute); white-space: nowrap; }
+
+  /* ── Q版表情包 ── */
+  .emoji { left: 1200px; top: 42px; width: 424px; }
+  .emoji ul { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 22px; }
+  .emoji li { display: grid; justify-items: center; }
+  .emoji img { width: 150px; height: 150px; margin: 0 -6px; mix-blend-mode: multiply; }
+  .emoji span { font-size: 15px; line-height: 22px; letter-spacing: 1px; }
+
+  /* ── 底部：设计说明 / 面料 / 全套服装配饰 ── */
+  .notes { left: 44px; top: 860px; width: 204px; }
+  .notes p { margin-top: 9px; font-size: 12px; line-height: 21px; color: var(--text); white-space: nowrap; }
+
+  .fabrics { left: 270px; top: 860px; width: 270px; }
+  .fabrics ul { margin-top: 10px; display: grid; grid-template-columns: repeat(3, 82px); column-gap: 12px; }
+  .fabrics img { width: 82px; height: 54px; object-fit: cover; border: 1px solid rgba(0, 0, 0, .12); }
+  .fabrics span { display: block; margin-top: 5px; font-size: 11px; line-height: 16px; text-align: center; color: var(--text); white-space: nowrap; }
+  .fabrics span em { display: block; font-style: normal; color: var(--mute); }
+
+  .items { left: 566px; top: 860px; width: 1058px; }
+  .items ul { margin-top: 9px; display: grid; grid-template-columns: repeat(9, 1fr); }
+  .items li { display: grid; justify-items: center; }
+  .items img { width: 80px; height: 80px; border-radius: 6px; }   /* 单品图自带浅灰底：白色单品靠它才看得清 */
+  .items span { margin-top: 3px; font-size: 11.5px; line-height: 16px; color: var(--text); }
+</style>
+</head>
+<body>
+<main class="sheet">
+
+  <!-- 标题 -->
+  <header class="title">
+    <h1>角色设定表</h1>
+    <p>古风甜宠 · 女主角</p>
+    <svg width="200" height="9" viewBox="0 0 200 9" aria-hidden="true" fill="none" stroke="#8d8d93" stroke-width="1">
+      <path d="M9 4.5h182" stroke-dasharray="6 5"/>
+      <path d="M0 4.5h9M4.5 0v9M191 4.5h9M195.5 0v9"/>
+    </svg>
+  </header>
+
+  <!-- 基本信息 -->
+  <dl class="info">
+    <dt>姓名：</dt><dd>沈清辞</dd>
+    <dt>年龄：</dt><dd>25</dd>
+    <dt>身高：</dt><dd>166cm</dd>
+    <dt>体型：</dt><dd>纤细修长 仪态端庄</dd>
+    <dt>身份：</dt><dd>穿越王妃</dd>
+    <dt>性格：</dt><dd>冷静果断 外柔内刚</dd>
+    <dt>识别点：</dt><dd>左眼下小痣 黑长直</dd>
+  </dl>
+
+  <section class="intro">
+    <h3>简介：</h3>
+    <p>现代外科医生，穿越成王妃。<br>日常穿月白襦裙配青色披帛，<br>高光戏换红色嫁衣。<br>本表为日常造型。</p>
+  </section>
+
+  <!-- 配色方案：色号取自本页图片 -->
+  <section class="palette">
+    <h2>配色方案</h2>
+    <ul>
+      <li><span>发色</span><i style="background:#151517"></i><code>#151517</code></li>
+      <li><span>瞳色</span><i style="background:#422F29"></i><code>#422F29</code></li>
+      <li><span>肤色</span><i style="background:#E9C8B7"></i><code>#E9C8B7</code></li>
+      <li><span>唇色</span><i style="background:#BA6F6A"></i><code>#BA6F6A</code></li>
+      <li><span>上襦</span><i style="background:#EFEEE8"></i><code>#EFEEE8</code></li>
+      <li><span>长裙</span><i style="background:#D6DEDA"></i><code>#D6DEDA</code></li>
+      <li><span>披帛</span><i style="background:#B5CBC4"></i><code>#B5CBC4</code></li>
+      <li><span>腰带/绣鞋</span><i style="background:#A3BCB6"></i><code>#A3BCB6</code></li>
+      <li><span>白玉</span><i style="background:#E0E1DA"></i><code>#E0E1DA</code></li>
+    </ul>
+  </section>
+
+  <!-- 三视图：身高标尺画在人物后面（166cm = 头顶，不算发髻；0 = 鞋底） -->
+  <svg class="ruler" width="698" height="860" viewBox="0 0 698 860" aria-hidden="true">
+    <line x1="0" y1="134" x2="698" y2="134"/> <text x="0" y="129">166cm</text>
+    <line x1="0" y1="202" x2="698" y2="202"/> <text x="0" y="197">150</text>
+    <line x1="0" y1="414" x2="698" y2="414"/> <text x="0" y="409">100</text>
+    <line x1="0" y1="626" x2="698" y2="626"/> <text x="0" y="621">50</text>
+    <line x1="0" y1="838" x2="698" y2="838"/> <text x="0" y="833">0</text>
+  </svg>
+  <span class="pill" style="left:358px">正面</span>
+  <span class="pill" style="left:575.5px">侧面</span>
+  <span class="pill" style="left:803px">背面</span>
+  <img class="view" style="left:261px; width:269.5px" src="parts/view-front.png" alt="沈清辞 正面全身">
+  <img class="view" style="left:508.5px; width:228px" src="parts/view-side.png"  alt="沈清辞 侧面全身">
+  <img class="view" style="left:712.5px; width:269.5px" src="parts/view-back.png"  alt="沈清辞 背面全身">
+
+  <!-- 细节展示 -->
+  <section class="details">
+    <h2>细节展示</h2>
+    <ul>
+      <li><img src="parts/detail-mole.jpg" alt=""><div><b>小痣</b><span>左眼下方</span><span>角色识别点</span></div></li>
+      <li><img src="parts/detail-hairpin.jpg" alt=""><div><b>发簪</b><span>白玉发簪</span><span>横插发髻</span></div></li>
+      <li><img src="parts/detail-collar.jpg" alt=""><div><b>交领</b><span>交领右衽</span><span>白色中衣领</span></div></li>
+      <li><img src="parts/detail-pendant.jpg" alt=""><div><b>玉佩</b><span>白玉环佩</span><span>青色流苏</span></div></li>
+      <li><img src="parts/detail-shoes.jpg" alt=""><div><b>绣鞋</b><span>青缎鞋面</span><span>白色刺绣</span></div></li>
+    </ul>
+  </section>
+
+  <!-- Q版表情包 -->
+  <section class="emoji">
+    <h2>Q版表情包</h2>
+    <ul>
+      <li><img src="parts/emoji-01-happy.png" alt=""><span>开心</span></li>
+      <li><img src="parts/emoji-02-laugh.png" alt=""><span>大笑</span></li>
+      <li><img src="parts/emoji-03-calm.png" alt=""><span>冷静</span></li>
+      <li><img src="parts/emoji-04-angry.png" alt=""><span>愤怒</span></li>
+      <li><img src="parts/emoji-05-sad.png" alt=""><span>难过</span></li>
+      <li><img src="parts/emoji-06-shocked.png" alt=""><span>震惊</span></li>
+      <li><img src="parts/emoji-07-scared.png" alt=""><span>害怕</span></li>
+      <li><img src="parts/emoji-08-smitten.png" alt=""><span>心动</span></li>
+      <li><img src="parts/emoji-09-thinking.png" alt=""><span>思考</span></li>
+      <li><img src="parts/emoji-10-smug.png" alt=""><span>得意</span></li>
+      <li><img src="parts/emoji-11-speechless.png" alt=""><span>无语</span></li>
+      <li><img src="parts/emoji-12-tired.png" alt=""><span>疲惫</span></li>
+    </ul>
+  </section>
+
+  <!-- 设计说明 -->
+  <section class="notes">
+    <h2>设计说明</h2>
+    <p>白襦配月白长裙，青色点缀。<br>交领右衽，宽腰带系蝴蝶结。<br>披帛与流苏让动作更显飘逸。<br>全剧保持同一套配色。</p>
+  </section>
+
+  <!-- 服装材质参考 -->
+  <section class="fabrics">
+    <h2>服装材质参考</h2>
+    <ul>
+      <li><img src="parts/fabric-skirt.jpg" alt=""><span>长裙面料<em>云纹提花绸 柔滑</em></span></li>
+      <li><img src="parts/fabric-shawl.jpg" alt=""><span>披帛面料<em>真丝薄纱 轻透</em></span></li>
+      <li><img src="parts/fabric-shoes.jpg" alt=""><span>鞋面面料<em>刺绣缎面 光泽</em></span></li>
+    </ul>
+  </section>
+
+  <!-- 服装配饰参考：角色身上的全部 9 件 -->
+  <section class="items">
+    <h2>服装配饰参考</h2>
+    <ul>
+      <li><img src="parts/item-top.jpg" alt=""><span>交领上襦</span></li>
+      <li><img src="parts/item-inner.jpg" alt=""><span>白色中衣</span></li>
+      <li><img src="parts/item-skirt.jpg" alt=""><span>齐腰长裙</span></li>
+      <li><img src="parts/item-sash.jpg" alt=""><span>蝴蝶结腰带</span></li>
+      <li><img src="parts/item-shawl.jpg" alt=""><span>青色披帛</span></li>
+      <li><img src="parts/item-pendant.jpg" alt=""><span>白玉环佩</span></li>
+      <li><img src="parts/item-hairpin.jpg" alt=""><span>白玉发簪</span></li>
+      <li><img src="parts/item-earrings.jpg" alt=""><span>珍珠耳坠</span></li>
+      <li><img src="parts/item-shoes.jpg" alt=""><span>绣花鞋</span></li>
+    </ul>
+  </section>
+
+</main>
+</body>
+</html>
