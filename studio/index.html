@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 短剧工作台 · 首页模板</title>
+<meta name="description" content="AI 短剧 / 漫剧创作工作台首页模板：提示词生成器、制作流程、作品精选。纯 HTML + CSS + 原生 JS，无依赖。">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#060708">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>
+/* 首帧前同步主题 / 侧边栏 / 提示条状态，避免闪烁 */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  try {
+    var t = JSON.parse(localStorage.getItem('duanju:theme'));
+    if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    d.dataset.theme = t;
+    if (JSON.parse(localStorage.getItem('duanju:sidebar')) === 'collapsed') d.classList.add('sidebar-collapsed');
+    if (sessionStorage.getItem('duanju:announceClosed') === '1') d.classList.add('announce-dismissed');
+  } catch (e) {}
+})();
+</script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== 图标（内联 SVG sprite，用 <use href="#i-xxx"> 引用） ===== -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M11 4l1.7 4.6a2 2 0 001.2 1.2L18.5 11.5l-4.6 1.7a2 2 0 00-1.2 1.2L11 19l-1.7-4.6a2 2 0 00-1.2-1.2L3.5 11.5l4.6-1.7a2 2 0 001.2-1.2z"/><path d="M19 3v4M17 5h4"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19h7a3.5 3.5 0 000-7h-7a3.5 3.5 0 010-7h7"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v13c4 0 6.5.5 8 2 1.5-1.5 4-2 8-2v-13c-4 0-6.5.5-8 2z"/><path d="M12 6.5v13"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3.5l8.5 4.5-8.5 4.5L3.5 8z"/><path d="M3.5 12.5l8.5 4.5 8.5-4.5"/><path d="M3.5 16.5L12 21l8.5-4.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M2.5 12h2M19.5 12h2M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M5 9l7 7 7-7"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 017-2.6A4 4 0 0119 10c0 5.6-7 10-7 10z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5" width="3.5" height="14" rx="1"/><rect x="14" y="5" width="3.5" height="14" rx="1"/></symbol>
+  <symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 12a8 8 0 108-8H7"/><path d="M10 1L7 4l3 3"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8"/><path d="M19 14v4a1 1 0 01-1 1H6a1 1 0 01-1-1V6a1 1 0 011-1h4"/></symbol>
+  <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></symbol>
+  <symbol id="i-script" viewBox="0 0 24 24"><path d="M7 3.5h7l4.5 4.5V19a1.5 1.5 0 01-1.5 1.5H7A1.5 1.5 0 015.5 19V5A1.5 1.5 0 017 3.5z"/><path d="M14 3.5V8h4.5M9 12.5h6M9 16h4"/></symbol>
+  <symbol id="i-frames" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M7.5 4.5v15M16.5 4.5v15M3 9.5h4.5M3 14.5h4.5M16.5 9.5H21M16.5 14.5H21"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-3.8 3.8-6 7.5-6s6.7 2.2 7.5 6"/></symbol>
+  <symbol id="i-scene" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 16l4.5-4.5 3.5 3.5 4-4.5L21 16"/><circle cx="8.5" cy="9" r="1.3"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0013 0M12 18v3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M20.5 3.5L10 14M20.5 3.5l-6.5 17-4-6.5-6.5-4z"/></symbol>
+  <symbol id="i-wand" viewBox="0 0 24 24"><path d="M5 19L16 8M14.5 6.5l3 3"/><path d="M18 2.5v3M16.5 4h3M7 4v2M6 5h2M19 13v2M18 14h2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 7.6v.1"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3.5 12.5V5A1.5 1.5 0 015 3.5h7.5l8 8a1.5 1.5 0 010 2.1l-6.4 6.4a1.5 1.5 0 01-2.1 0z"/><circle cx="8" cy="8" r="1.2"/></symbol>
+  <symbol id="i-ratio" viewBox="0 0 24 24"><rect x="6.5" y="3" width="11" height="18" rx="2.5"/><path d="M10.5 17.5h3"/></symbol>
+  <symbol id="i-sort" viewBox="0 0 24 24"><path d="M7 5v14M4 16l3 3 3-3M17 19V5M14 8l3-3 3 3"/></symbol>
+  <symbol id="i-enter" viewBox="0 0 24 24"><path d="M20 5v6a3 3 0 01-3 3H5M9 10l-4 4 4 4"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 107.5-7.5H8"/><path d="M10.5 2L8 4.5 10.5 7"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<div class="shell">
+
+  <!-- ===== 侧边栏 ===== -->
+  <aside class="sidebar" id="sidebar" aria-label="主导航">
+    <div class="sidebar__head">
+      <a class="brand" href="#create" aria-label="AI 短剧工作台">
+        <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true">
+          <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: var(--brand-1)"/><stop offset="1" style="stop-color: var(--brand-3)"/></linearGradient></defs>
+          <rect width="32" height="32" rx="9" fill="url(#brandGrad)"/>
+          <path d="M8.5 10.5l2.2-3M13.8 10.5l2.2-3M19.1 10.5l2.2-3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <path d="M13 15.4v7.2c0 .9 1 1.4 1.7.9l5.3-3.6c.6-.4.6-1.4 0-1.8l-5.3-3.6c-.7-.5-1.7 0-1.7.9z" fill="#fff"/>
+        </svg>
+        <span class="brand__name">AI 短剧工作台</span>
+      </a>
+      <button class="icon-btn sidebar__toggle" id="sidebarToggle" type="button" aria-label="收起侧边栏" aria-expanded="true" aria-controls="sidebar">
+        <svg class="icon" aria-hidden="true"><use href="#i-sidebar"/></svg>
+      </button>
+    </div>
+
+    <nav class="nav" aria-label="页面导航">
+      <p class="nav__label">工作台</p>
+      <a class="nav__item" href="#create" data-spy="create" data-tip="开始创作"><svg class="icon" aria-hidden="true"><use href="#i-spark"/></svg><span>开始创作</span></a>
+      <a class="nav__item" href="#workflow" data-spy="workflow" data-tip="制作流程"><svg class="icon" aria-hidden="true"><use href="#i-route"/></svg><span>制作流程</span></a>
+      <a class="nav__item" href="#gallery" data-spy="gallery" data-tip="作品精选"><svg class="icon" aria-hidden="true"><use href="#i-grid"/></svg><span>作品精选</span></a>
+
+      <p class="nav__label">学习资料</p>
+      <a class="nav__item" href="../tutorial/index.html" data-tip="图文教程"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg><span>图文教程</span><svg class="icon nav__ext" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a class="nav__item" href="../novel-templates/index.html" data-tip="小说拆解模板"><svg class="icon" aria-hidden="true"><use href="#i-layers"/></svg><span>小说拆解模板</span><svg class="icon nav__ext" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+    </nav>
+
+    <div class="plan-card" id="planCard">
+      <div class="plan-card__row">
+        <span class="plan-card__title">学习进度</span>
+        <button class="icon-btn icon-btn--xs" id="planReset" type="button" aria-label="重新开始 30 天计划" title="重新开始">
+          <svg class="icon" aria-hidden="true"><use href="#i-reset"/></svg>
+        </button>
+      </div>
+      <p class="plan-card__day"><b id="planDay">第 1 天</b><span>/ 30 天</span></p>
+      <div class="plan-card__bar" id="planProgress" role="progressbar" aria-label="30 天计划进度" aria-valuemin="0" aria-valuemax="30" aria-valuenow="1"><span id="planBar"></span></div>
+      <p class="plan-card__phase" id="planPhase">入门期 · 学豆包提示词和剪映基础，写 3 个剧本大纲</p>
+    </div>
+  </aside>
+
+  <div class="shell__main" id="shellMain">
+
+    <!-- ===== 顶部提示条：30 天学习计划倒计时 =====
+         默认从第一次打开页面起算 data-days 天；想改成固定截止时间，
+         加上 data-deadline="2026-12-31T23:59:59+08:00" 即可。 -->
+    <div class="announce" id="announce" role="region" aria-label="30 天学习计划倒计时" data-days="30">
+      <div class="announce__inner">
+        <span class="announce__badge">30 天计划</span>
+        <p class="announce__text" id="announceText">每天 1–2 小时，跟着教程做出你的第一条进阶漫剧</p>
+        <div class="countdown" id="countdown" role="timer" aria-label="剩余时间">
+          <span class="countdown__cell"><b data-unit="d">--</b><i>天</i></span>
+          <span class="countdown__cell"><b data-unit="h">--</b><i>时</i></span>
+          <span class="countdown__cell"><b data-unit="m">--</b><i>分</i></span>
+          <span class="countdown__cell"><b data-unit="s">--</b><i>秒</i></span>
+        </div>
+        <a class="announce__link" href="../tutorial/index.html#ch10">查看计划<svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      </div>
+      <button class="icon-btn announce__close" id="announceClose" type="button" aria-label="关闭提示条">
+        <svg class="icon" aria-hidden="true"><use href="#i-close"/></svg>
+      </button>
+    </div>
+
+    <!-- ===== 顶栏 ===== -->
+    <header class="topbar" id="topbar">
+      <button class="icon-btn topbar__menu" id="menuBtn" type="button" aria-label="打开导航" aria-controls="sidebar" aria-expanded="false">
+        <svg class="icon" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+      <div class="search" id="search" role="search">
+        <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="searchInput" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" spellcheck="false" placeholder="搜索作品、题材或作者" aria-label="搜索作品、题材或作者">
+        <button class="search__clear" id="searchClear" type="button" aria-label="清空搜索" hidden><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+        <kbd class="search__kbd" aria-hidden="true">/</kbd>
+      </div>
+      <div class="topbar__actions">
+        <button class="btn btn--sm btn--soft" id="newBtn" type="button" aria-label="写提示词"><svg class="icon" aria-hidden="true"><use href="#i-wand"/></svg><span>写提示词</span></button>
+        <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="切换主题">
+          <svg class="icon theme-toggle__sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="icon theme-toggle__moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+
+      <!-- ===== 开始创作：提示词生成器 ===== -->
+      <section class="hero" id="create" aria-labelledby="heroTitle">
+        <div class="hero__bg" aria-hidden="true"><i></i></div>
+
+        <p class="eyebrow"><span class="eyebrow__dot"></span>纯前端演示 · 提示词在本地拼装，不上传任何内容</p>
+        <h1 class="hero__title" id="heroTitle">一句话，<em>开拍</em>你的下一部短剧</h1>
+        <p class="hero__sub">写下创意，选好题材、画幅和时长，这里帮你拼出一段可以直接粘贴给豆包的完整提示词。</p>
+
+        <form class="composer" id="composer" novalidate>
+          <div class="composer__tabs" id="composerTabs" role="tablist" aria-label="创作环节">
+            <span class="composer__ink" id="composerInk" aria-hidden="true"></span>
+            <!-- 环节按钮由 js/data.js 里的 modes 生成 -->
+          </div>
+
+          <div class="composer__panel" id="composerPanel" role="tabpanel" tabindex="-1">
+            <div class="composer__labelrow">
+              <label class="composer__label" id="promptLabel" for="prompt">一句话梗概</label>
+              <span class="composer__count" id="promptCount" aria-live="off">0 / 300</span>
+            </div>
+            <textarea id="prompt" name="prompt" rows="3" maxlength="300" aria-describedby="promptCount"></textarea>
+            <p class="composer__error" id="promptError" role="alert" hidden></p>
+          </div>
+
+          <div class="composer__bar">
+            <div class="composer__opts" id="composerOpts">
+              <div class="select" data-select="genre">
+                <button class="select__btn" type="button" id="sel-genre" aria-haspopup="listbox" aria-expanded="false">
+                  <svg class="icon" aria-hidden="true"><use href="#i-tag"/></svg>
+                  <span class="select__label">题材</span><span class="select__value"></span>
+                  <svg class="icon select__caret" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+                </button>
+                <ul class="select__menu" role="listbox" tabindex="-1" aria-labelledby="sel-genre" hidden></ul>
+              </div>
+              <div class="select" data-select="ratio">
+                <button class="select__btn" type="button" id="sel-ratio" aria-haspopup="listbox" aria-expanded="false">
+                  <svg class="icon" aria-hidden="true"><use href="#i-ratio"/></svg>
+                  <span class="select__label">画幅</span><span class="select__value"></span>
+                  <svg class="icon select__caret" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+                </button>
+                <ul class="select__menu" role="listbox" tabindex="-1" aria-labelledby="sel-ratio" hidden></ul>
+              </div>
+              <div class="select" data-select="duration">
+                <button class="select__btn" type="button" id="sel-duration" aria-haspopup="listbox" aria-expanded="false">
+                  <svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
+                  <span class="select__label">时长</span><span class="select__value"></span>
+                  <svg class="icon select__caret" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+                </button>
+                <ul class="select__menu" role="listbox" tabindex="-1" aria-labelledby="sel-duration" hidden></ul>
+              </div>
+            </div>
+            <button class="btn btn--primary composer__submit" id="generateBtn" type="submit">
+              <svg class="icon" aria-hidden="true"><use href="#i-wand"/></svg>
+              <span class="composer__submit-text">生成提示词</span>
+              <span class="spinner" aria-hidden="true"></span>
+              <kbd class="composer__kbd" id="submitKbd" aria-hidden="true"><span>Ctrl</span><svg class="icon" aria-hidden="true"><use href="#i-enter"/></svg></kbd>
+            </button>
+          </div>
+        </form>
+
+        <div class="suggest" id="suggest" aria-label="灵感示例"></div>
+
+        <!-- 生成结果 -->
+        <section class="result" id="result" aria-labelledby="resultTitle" hidden>
+          <header class="result__head">
+            <span class="result__badge" role="status"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg><span id="resultStatus">提示词已生成</span></span>
+            <h2 class="result__title" id="resultTitle"></h2>
+            <div class="result__actions">
+              <button class="btn btn--sm" id="copyBtn" type="button"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>复制</span></button>
+              <a class="btn btn--sm btn--ghost" id="doubaoLink" href="https://www.doubao.com/" target="_blank" rel="noopener noreferrer">打开豆包<svg class="icon" aria-hidden="true"><use href="#i-external"/></svg></a>
+              <button class="icon-btn" id="resultClose" type="button" aria-label="收起结果"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+            </div>
+          </header>
+          <pre class="result__body" id="resultBody" tabindex="0" aria-label="生成的提示词"></pre>
+          <p class="result__blank" id="resultBlank" hidden><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+          <footer class="result__foot">
+            <button class="link-btn" id="nextStepBtn" type="button"><span></span><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
+            <a class="result__chapter" id="resultChapter" href="../tutorial/index.html#ch2"></a>
+          </footer>
+        </section>
+      </section>
+
+      <!-- ===== 制作流程 ===== -->
+      <section class="section" id="workflow" aria-labelledby="workflowTitle">
+        <header class="section__head">
+          <div>
+            <h2 id="workflowTitle">制作流程</h2>
+            <p>8 个环节，从一句话创意到发布上线。先把剧本和分镜做扎实，再做画面。</p>
+          </div>
+          <div class="section__tools" id="railTools">
+            <button class="icon-btn icon-btn--line" id="railPrev" type="button" aria-label="向左滚动"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+            <button class="icon-btn icon-btn--line" id="railNext" type="button" aria-label="向右滚动"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+          </div>
+        </header>
+
+        <div class="rail" id="rail" tabindex="0" role="region" aria-label="制作流程，可左右滚动">
+          <ol class="rail__track">
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/01-topic.jpg" width="600" height="400" alt="选题构思：桌面上的思维导图和便利贴" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">01</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch2">选题</a></h3>
+                <p>决定你做什么，不做错方向</p>
+                <span class="step-card__out">产出：一句话梗概 + 目标人群</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 2 章</span><button class="btn btn--sm step-card__use" type="button" data-use-mode="topic">写提示词</button></div>
+              </div>
+            </article></li>
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/02-script.jpg" width="600" height="400" alt="用豆包写剧本：笔记本电脑上的对话界面" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">02</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch2">剧本</a></h3>
+                <p>决定观众看不看得下去</p>
+                <span class="step-card__out">产出：分集大纲 + 台词稿</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 2 章</span><button class="btn btn--sm step-card__use" type="button" data-use-mode="script">写提示词</button></div>
+              </div>
+            </article></li>
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/03-storyboard.jpg" width="600" height="400" alt="分镜示意：六格古风少女镜头变化分镜表" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">03</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch3">分镜</a></h3>
+                <p>把文字变成镜头</p>
+                <span class="step-card__out">产出：分镜表 + 草图</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 3 章</span><button class="btn btn--sm step-card__use" type="button" data-use-mode="storyboard">写提示词</button></div>
+              </div>
+            </article></li>
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/04-character.jpg" width="600" height="400" alt="角色设定表：现代都市女主角三视图与表情" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">04</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch4">角色 / 场景</a></h3>
+                <p>决定画面好不好看、像不像</p>
+                <span class="step-card__out">产出：设定表 + 场景图</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 4 章</span><button class="btn btn--sm step-card__use" type="button" data-use-mode="character">写提示词</button></div>
+              </div>
+            </article></li>
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/05-dubbing.jpg" width="600" height="400" alt="配音工作台：麦克风、耳机与波形显示器" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">05</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch5">配音</a></h3>
+                <p>决定情绪对不对</p>
+                <span class="step-card__out">产出：干声 + 混音</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 5 章</span><button class="btn btn--sm step-card__use" type="button" data-use-mode="dubbing">写提示词</button></div>
+              </div>
+            </article></li>
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/06-motion.jpg" width="600" height="400" alt="动态制作：分层的角色画面与时间线" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">06</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch6">动态</a></h3>
+                <p>让画面活起来</p>
+                <span class="step-card__out">产出：动效工程文件</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 6 章</span><span class="step-card__tool">剪映完成</span></div>
+              </div>
+            </article></li>
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/07-editing.jpg" width="600" height="400" alt="剪辑时间线：笔记本上的剪辑软件与手机预览" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">07</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch7">剪辑</a></h3>
+                <p>决定节奏和完播率</p>
+                <span class="step-card__out">产出：成片 MP4</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 7 章</span><span class="step-card__tool">剪映完成</span></div>
+              </div>
+            </article></li>
+            <li class="step"><article class="step-card">
+              <div class="step-card__media"><img src="assets/steps/08-publish.jpg" width="600" height="400" alt="发布效果：手机里播放的漫剧与点赞" loading="lazy" decoding="async" draggable="false"><span class="step-card__no">08</span></div>
+              <div class="step-card__body">
+                <h3><a href="../tutorial/index.html#ch8">发布</a></h3>
+                <p>决定有没有人点进来</p>
+                <span class="step-card__out">产出：标题 / 封面 / 简介</span>
+                <div class="step-card__foot"><span class="step-card__chapter">教程第 8 章</span><button class="btn btn--sm step-card__use" type="button" data-use-mode="publish">写提示词</button></div>
+              </div>
+            </article></li>
+          </ol>
+        </div>
+        <div class="rail__progress" aria-hidden="true"><span id="railBar"></span></div>
+      </section>
+
+      <!-- ===== 作品精选 ===== -->
+      <section class="section" id="gallery" aria-labelledby="galleryTitle">
+        <header class="section__head">
+          <div>
+            <h2 id="galleryTitle">作品精选</h2>
+            <p>示例数据，配图是 AI 生成的插画和本仓库的教程配图。点开可预览推、拉、摇镜头的动态效果。</p>
+          </div>
+        </header>
+
+        <div class="toolbar">
+          <div class="filters" id="filters" role="group" aria-label="按题材筛选">
+            <span class="filters__pill" id="filtersPill" aria-hidden="true"></span>
+            <!-- 筛选按钮由 js/data.js 里的 filters 生成 -->
+          </div>
+          <div class="select select--end" data-select="sort">
+            <button class="select__btn" type="button" id="sel-sort" aria-haspopup="listbox" aria-expanded="false">
+              <svg class="icon" aria-hidden="true"><use href="#i-sort"/></svg>
+              <span class="select__label sr-only">排序</span><span class="select__value"></span>
+              <svg class="icon select__caret" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </button>
+            <ul class="select__menu" role="listbox" tabindex="-1" aria-labelledby="sel-sort" hidden></ul>
+          </div>
+        </div>
+
+        <p class="gallery__status" id="galleryStatus" role="status" aria-live="polite"></p>
+
+        <div class="masonry" id="masonry" aria-busy="false"></div>
+
+        <div class="gallery__empty" id="galleryEmpty" hidden>
+          <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <p><b>没有找到相关作品</b></p>
+          <p id="galleryEmptyHint">换个关键词，或者清除筛选条件再试试。</p>
+          <button class="btn btn--sm" id="galleryReset" type="button">清除筛选</button>
+        </div>
+
+        <div class="gallery__more" id="galleryMore">
+          <button class="btn" id="loadMore" type="button">加载更多</button>
+          <p class="gallery__end" id="galleryEnd" hidden></p>
+          <span class="sentinel" id="sentinel" aria-hidden="true"></span>
+        </div>
+
+        <noscript><p class="noscript">作品列表和提示词生成器需要启用 JavaScript。</p></noscript>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>AI 短剧工作台 · 原创前端模板（HTML + CSS + 原生 JS，无依赖）</p>
+      <p>示例作品均为虚构数据，配图为 AI 生成的插画与本仓库教程配图。<a href="../tutorial/index.html">图文教程</a> · <a href="../novel-templates/index.html">小说拆解模板</a></p>
+    </footer>
+  </div>
+</div>
+
+<div class="backdrop" id="backdrop" hidden></div>
+
+<!-- ===== 作品预览弹层 ===== -->
+<dialog class="lightbox" id="lightbox" aria-labelledby="lbTitle">
+  <div class="lightbox__panel" id="lbPanel" tabindex="-1">
+    <div class="lightbox__stage" id="lbStage">
+      <div class="lightbox__frame" id="lbFrame"><img id="lbImg" alt="" decoding="async" draggable="false"></div>
+      <span class="lightbox__motion" id="lbMotion"></span>
+      <p class="lightbox__sub" id="lbSub" aria-hidden="true"></p>
+      <button class="icon-btn lightbox__nav lightbox__nav--prev" id="lbPrev" type="button" aria-label="上一个作品"><svg class="icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+      <button class="icon-btn lightbox__nav lightbox__nav--next" id="lbNext" type="button" aria-label="下一个作品"><svg class="icon" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+      <div class="lightbox__controls">
+        <button class="icon-btn lightbox__play" id="lbPlay" type="button" aria-label="播放预览"><svg class="icon" aria-hidden="true"><use id="lbPlayIcon" href="#i-play"/></svg></button>
+        <div class="lightbox__bar" id="lbSeek" role="progressbar" aria-label="预览进度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="lbBar"></span></div>
+        <span class="lightbox__time" id="lbTime">0:00 / 0:08</span>
+      </div>
+    </div>
+
+    <div class="lightbox__info">
+      <div class="lightbox__tags" id="lbTags"></div>
+      <h2 class="lightbox__title" id="lbTitle"></h2>
+      <div class="lightbox__author">
+        <span class="avatar avatar--lg" id="lbAvatar" aria-hidden="true"></span>
+        <div><b id="lbAuthor"></b><span id="lbDate"></span></div>
+      </div>
+      <p class="lightbox__desc" id="lbDesc"></p>
+      <dl class="lightbox__stats">
+        <div><dt>点赞</dt><dd id="lbLikes"></dd></div>
+        <div><dt>播放</dt><dd id="lbViews"></dd></div>
+        <div><dt>时长</dt><dd id="lbDur"></dd></div>
+      </dl>
+      <div class="lightbox__idea">
+        <h3>一句话创意</h3>
+        <p id="lbIdea"></p>
+      </div>
+      <div class="lightbox__actions">
+        <button class="btn btn--primary" id="lbRemix" type="button"><svg class="icon" aria-hidden="true"><use href="#i-wand"/></svg>做同款</button>
+        <button class="btn like like--btn" id="lbLike" type="button" aria-pressed="false" aria-label="点赞"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span class="like__n">点赞</span></button>
+        <button class="btn btn--ghost" id="lbShare" type="button" aria-label="复制作品链接"><svg class="icon" aria-hidden="true"><use href="#i-link"/></svg></button>
+      </div>
+      <p class="lightbox__hint"><span><kbd>←</kbd><kbd>→</kbd> 切换作品</span><span><kbd>空格</kbd> 播放 / 暂停</span><span><kbd>Esc</kbd> 关闭</span></p>
+    </div>
+
+    <button class="icon-btn lightbox__close" id="lbClose" type="button" aria-label="关闭预览"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button>
+  </div>
+</dialog>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<button class="to-top" id="toTop" type="button" aria-label="回到顶部"><svg class="icon" aria-hidden="true"><use href="#i-arrow-up"/></svg></button>
+
+<!-- ===== 模板 ===== -->
+<template id="tplCard">
+  <article class="card">
+    <button class="card__media" type="button" aria-haspopup="dialog">
+      <img class="card__img" alt="" loading="lazy" decoding="async" draggable="false">
+      <span class="card__shade" aria-hidden="true"></span>
+      <span class="card__badge"></span>
+      <span class="card__dur"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg><span></span></span>
+      <span class="card__play" aria-hidden="true"><svg class="icon"><use href="#i-play"/></svg></span>
+    </button>
+    <div class="card__meta">
+      <h3 class="card__title"></h3>
+      <div class="card__row">
+        <span class="avatar" aria-hidden="true"></span>
+        <span class="card__author"></span>
+        <button class="like" type="button" aria-pressed="false"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span class="like__n"></span></button>
+      </div>
+    </div>
+  </article>
+</template>
+
+<template id="tplSkeleton">
+  <div class="skeleton" aria-hidden="true">
+    <div class="skeleton__media"></div>
+    <div class="skeleton__line"></div>
+    <div class="skeleton__line skeleton__line--short"></div>
+  </div>
+</template>
+
+<script src="js/data.js" defer></script>
+<script src="js/app.js" defer></script>
+</body>
+</html>

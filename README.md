@@ -102,3 +102,18 @@ python3 -m http.server 8001
 - 定妆照：`character-sheets/lu-chen/face.jpg`，之后生图、生视频时当角色参考图上传，用来锁定同一张脸
 - 提示词：[`character-sheets/lu-chen/prompts.md`](character-sheets/lu-chen/prompts.md)
 - 改字后怎么重新导出、怎么给别的角色做一张、已知的不足：见 [`character-sheets/README.md`](character-sheets/README.md)
+
+---
+
+# 🖥️ AI 短剧工作台（演示页面）
+
+> 一个静态首页模板：把教程附录 D1-D7 的提示词做成 7 种创作模式，配 8 步流程和作品展示。**不调用任何 AI 接口**，页面里的作品和数据都是虚构的示例。页面是从零写的，不是 LibTV 的源码。
+
+本地预览（页面里有指向教程和模板的链接，所以从仓库根目录起服务）：
+
+```bash
+python3 -m http.server 8080
+# 浏览器打开 http://localhost:8080/studio/
+```
+
+来源说明、目录、常见修改、验证情况：见 [`studio/README.md`](studio/README.md)。
