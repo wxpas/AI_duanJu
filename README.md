@@ -94,14 +94,17 @@ python3 -m http.server 8001
 
 ---
 
-# 🎭 角色设定表 · 陆沉
+# 🎭 角色设定表
 
 > AI 仿真人短剧用的角色设定表：白底三视图 + 身上全套服装配饰 + 12 个 Q 版表情，一张图定住一个角色。
 
-- 成品图：[`character-sheets/lu-chen-character-sheet.png`](character-sheets/lu-chen-character-sheet.png)（都市男主「陆沉」，对应教程 4.3 的后期造型）
-- 定妆照：`character-sheets/lu-chen/face.jpg`，之后生图、生视频时当角色参考图上传，用来锁定同一张脸
-- 提示词：[`character-sheets/lu-chen/prompts.md`](character-sheets/lu-chen/prompts.md)
-- 改字后怎么重新导出、怎么给别的角色做一张、已知的不足：见 [`character-sheets/README.md`](character-sheets/README.md)
+| 角色 | 成品图 | 定妆照 | 提示词 |
+|---|---|---|---|
+| 都市男主「陆沉」（教程 4.3，后期造型） | [`lu-chen-character-sheet.png`](character-sheets/lu-chen-character-sheet.png) | `character-sheets/lu-chen/face.jpg` | [`prompts.md`](character-sheets/lu-chen/prompts.md) |
+| 古风女主「沈清辞」（教程 4.2，日常造型） | [`shen-qingci-character-sheet.png`](character-sheets/shen-qingci-character-sheet.png) | `character-sheets/shen-qingci/face.jpg` | [`prompts.md`](character-sheets/shen-qingci/prompts.md) |
+| 悬疑主播「小北」（教程 4.4，直播标配造型） | [`xiao-bei-character-sheet.png`](character-sheets/xiao-bei-character-sheet.png) | `character-sheets/xiao-bei/face.jpg` | [`prompts.md`](character-sheets/xiao-bei/prompts.md) |
+
+定妆照在之后生图、生视频时当角色参考图上传，用来锁定同一张脸。改字后怎么重新导出、怎么给别的角色做一张、已知的不足：见 [`character-sheets/README.md`](character-sheets/README.md)。
 
 ---
 
